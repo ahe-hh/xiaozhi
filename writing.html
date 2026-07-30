@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="zh" class="light" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>写作页 — 小织</title>
+    <style id="theme-vars">
+/* ============================================================
+   Novel Workstation — Brand CSS
+   Style: Minimalist White (极简白净)
+   Prefix: nw
+   ============================================================ */
+
+/* ---- Root Tokens (Light Mode / Default) ---- */
+:root {
+  /* Primary hue — soft blue-gray (from user palette) */
+  --nw-primary-50:  #F0F4FA;
+  --nw-primary-100: #E8E8F0;
+  --nw-primary-200: #D8E0F0;
+  --nw-primary-300: #B0C8E8;
+  --nw-primary-400: #80A8E0;
+  --nw-primary-500: #6B8EC4;
+  --nw-primary-600: #4A6FA0;
+  --nw-primary-700: #3A5680;
+  --nw-primary-800: #2A4060;
+  --nw-primary-900: #1A2A40;
+
+  /* Neutral scale — warm-tinted grays */
+  --nw-neutral-0:   #FFFFFF;
+  --nw-neutral-50:  #F8F9FB;
+  --nw-neutral-100: #F0F0F0;
+  --nw-neutral-200: #E4E6EC;
+  --nw-neutral-300: #CDD2DC;
+  --nw-neutral-400: #9BA1AE;
+  --nw-neutral-500: #6B7280;
+  --nw-neutral-600: #4A5260;
+  --nw-neutral-700: #363D4A;
+  --nw-neutral-800: #1E242E;
+  --nw-neutral-900: #0F1318;
+
+  /* State colors */
+  --state-success: #5BAA75;
+  --state-warning: #D49A4E;
+  --state-error:   #C96B6B;
+  --state-info:    #80A8E0;
+
+  /* Radius scale (restrained) */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+
+  /* ---- Semantic Aliases (Light) ---- */
+  --nw-background: #FFFFFF;
+  --nw-foreground: #1E242E;
+  --nw-card: #F8F9FB;
+  --nw-card-foreground: #1E242E;
+  --nw-popover: #FFFFFF;
+  --nw-popover-foreground: #1E242E;
+  --nw-primary: #4A6FA0;
+  --nw-primary-foreground: #FFFFFF;
+  --nw-muted: #F0F0F0;
+  --nw-muted-foreground: #6B7280;
+  --nw-border: #E4E6EC;
+  --nw-input: #E4E6EC;
+  --nw-ring: #80A8E0;
+  --nw-radius-small: 4px;
+  --nw-radius-medium: 8px;
+  --nw-radius-large: 12px;
+  --nw-accent-soft: #B0C8E8;
+  --nw-accent-medium: #80A8E0;
+  --nw-accent-pale: #D8E0F0;
+  --nw-accent-lavender: #E8E8F0;
+
+  /* Typography */
+  --nw-font-sans: "Inter", system-ui, -apple-system, "Segoe UI", "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  --nw-font-mono: "JetBrains Mono", "Fira Code", "Cascadia Code", "SF Mono", Consolas, monospace;
+}
+
+/* ---- Dark Mode ---- */
+html.dark {
+  --nw-background: #0F1318;
+  --nw-foreground: #E4E6EC;
+  --nw-card: #1E242E;
+  --nw-card-foreground: #E4E6EC;
+  --nw-popover: #1E242E;
+  --nw-popover-foreground: #E4E6EC;
+  --nw-primary: #80A8E0;
+  --nw-primary-foreground: #0F1318;
+  --nw-muted: #2A2E38;
+  --nw-muted-foreground: #9BA1AE;
+  --nw-border: #2A2E38;
+  --nw-input: #2A2E38;
+  --nw-ring: #80A8E0;
+  --nw-accent-soft: #3A5680;
+  --nw-accent-medium: #4A6FA0;
+  --nw-accent-pale: #2A4060;
+  --nw-accent-lavender: #363D4A;
+}
+
+/* ---- Typography Classes ---- */
+.font-sans { font-family: var(--nw-font-sans); }
+.font-mono { font-family: var(--nw-font-mono); }
+
+.text-xs   { font-size: 12px; line-height: 16px; }
+.text-sm   { font-size: 14px; line-height: 20px; }
+.text-base { font-size: 16px; line-height: 24px; }
+.text-lg   { font-size: 18px; line-height: 28px; }
+.text-xl   { font-size: 20px; line-height: 28px; }
+.text-2xl  { font-size: 24px; line-height: 32px; }
+.text-3xl  { font-size: 30px; line-height: 36px; }
+
+.font-normal  { font-weight: 400; }
+.font-medium  { font-weight: 500; }
+.font-semibold{ font-weight: 600; }
+.font-bold    { font-weight: 700; }
+
+.tracking-tight  { letter-spacing: -0.025em; }
+.tracking-normal { letter-spacing: 0; }
+
+/* ---- Base Reset ---- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-family: var(--nw-font-sans); -webkit-font-smoothing: antialiased; }
+body { background: var(--nw-background); color: var(--nw-foreground); }
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-background: var(--nw-background);
+    --color-foreground: var(--nw-foreground);
+    --color-card: var(--nw-card);
+    --color-card-foreground: var(--nw-card-foreground);
+    --color-popover: var(--nw-popover);
+    --color-popover-foreground: var(--nw-popover-foreground);
+    --color-primary: var(--nw-primary);
+    --color-primary-foreground: var(--nw-primary-foreground);
+    --color-muted: var(--nw-muted);
+    --color-muted-foreground: var(--nw-muted-foreground);
+    --color-border: var(--nw-border);
+    --color-input: var(--nw-input);
+    --color-ring: var(--nw-ring);
+    --radius-sm: var(--nw-radius-small);
+    --radius-md: var(--nw-radius-medium);
+    --radius-lg: var(--nw-radius-large);
+  }
+  @layer base {
+    body { background: var(--nw-background); color: var(--nw-foreground); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style id="semantic-token-fallback">
+      .bg-background { background-color: var(--nw-background); }
+      .text-background { color: var(--nw-background); }
+      .border-background { border-color: var(--nw-background); }
+      .ring-background { --tw-ring-color: var(--nw-background); }
+      .bg-foreground { background-color: var(--nw-foreground); }
+      .text-foreground { color: var(--nw-foreground); }
+      .border-foreground { border-color: var(--nw-foreground); }
+      .ring-foreground { --tw-ring-color: var(--nw-foreground); }
+      .bg-card { background-color: var(--nw-card); }
+      .text-card { color: var(--nw-card); }
+      .border-card { border-color: var(--nw-card); }
+      .ring-card { --tw-ring-color: var(--nw-card); }
+      .bg-card-foreground { background-color: var(--nw-card-foreground); }
+      .text-card-foreground { color: var(--nw-card-foreground); }
+      .border-card-foreground { border-color: var(--nw-card-foreground); }
+      .ring-card-foreground { --tw-ring-color: var(--nw-card-foreground); }
+      .bg-popover { background-color: var(--nw-popover); }
+      .text-popover { color: var(--nw-popover); }
+      .border-popover { border-color: var(--nw-popover); }
+      .ring-popover { --tw-ring-color: var(--nw-popover); }
+      .bg-popover-foreground { background-color: var(--nw-popover-foreground); }
+      .text-popover-foreground { color: var(--nw-popover-foreground); }
+      .border-popover-foreground { border-color: var(--nw-popover-foreground); }
+      .ring-popover-foreground { --tw-ring-color: var(--nw-popover-foreground); }
+      .bg-primary { background-color: var(--nw-primary); }
+      .text-primary { color: var(--nw-primary); }
+      .border-primary { border-color: var(--nw-primary); }
+      .ring-primary { --tw-ring-color: var(--nw-primary); }
+      .bg-primary-foreground { background-color: var(--nw-primary-foreground); }
+      .text-primary-foreground { color: var(--nw-primary-foreground); }
+      .border-primary-foreground { border-color: var(--nw-primary-foreground); }
+      .ring-primary-foreground { --tw-ring-color: var(--nw-primary-foreground); }
+      .bg-muted { background-color: var(--nw-muted); }
+      .text-muted { color: var(--nw-muted); }
+      .border-muted { border-color: var(--nw-muted); }
+      .ring-muted { --tw-ring-color: var(--nw-muted); }
+      .bg-muted-foreground { background-color: var(--nw-muted-foreground); }
+      .text-muted-foreground { color: var(--nw-muted-foreground); }
+      .border-muted-foreground { border-color: var(--nw-muted-foreground); }
+      .ring-muted-foreground { --tw-ring-color: var(--nw-muted-foreground); }
+      .bg-border { background-color: var(--nw-border); }
+      .text-border { color: var(--nw-border); }
+      .border-border { border-color: var(--nw-border); }
+      .ring-border { --tw-ring-color: var(--nw-border); }
+      .bg-input { background-color: var(--nw-input); }
+      .text-input { color: var(--nw-input); }
+      .border-input { border-color: var(--nw-input); }
+      .ring-input { --tw-ring-color: var(--nw-input); }
+      .bg-ring { background-color: var(--nw-ring); }
+      .text-ring { color: var(--nw-ring); }
+      .border-ring { border-color: var(--nw-ring); }
+      .ring-ring { --tw-ring-color: var(--nw-ring); }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+    </style>
+    <style id="critical-layout">
+      /* ===== App Shell — Layout-Safe Static CSS ===== */
+      .app-shell {
+        display: flex;
+        min-height: 100vh;
+        width: 100%;
+        background: var(--nw-background);
+      }
+      .sidebar {
+        width: 232px;
+        flex-shrink: 0;
+        border-right: 1px solid var(--nw-border);
+        background: var(--nw-neutral-50);
+        display: flex;
+        flex-direction: column;
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        overflow-y: auto;
+        z-index: 20;
+      }
+      .sidebar-logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 20px 20px 16px;
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--nw-foreground);
+        letter-spacing: -0.02em;
+      }
+      .sidebar-logo svg, .sidebar-logo-icon {
+        width: 22px;
+        height: 22px;
+        color: var(--nw-primary);
+        flex-shrink: 0;
+      }
+      .sidebar-nav {
+        flex: 1;
+        padding: 8px 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .nav-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 9px 12px;
+        border-radius: 8px;
+        font-size: 14px;
+        color: var(--nw-neutral-600);
+        text-decoration: none;
+        transition: background 140ms ease, color 140ms ease;
+        cursor: pointer;
+      }
+      .nav-item svg { width: 18px; height: 18px; flex-shrink: 0; }
+      .nav-item:hover { background: var(--nw-neutral-100); color: var(--nw-foreground); }
+      .nav-item.active {
+        background: var(--nw-primary-50);
+        color: var(--nw-primary-600);
+        font-weight: 500;
+      }
+      .sidebar-footer {
+        padding: 12px 16px;
+        border-top: 1px solid var(--nw-border);
+        font-size: 12px;
+        color: var(--nw-neutral-400);
+      }
+      .main-area {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+      }
+      .top-header {
+        height: 56px;
+        flex-shrink: 0;
+        border-bottom: 1px solid var(--nw-border);
+        background: var(--nw-background);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 24px;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+      .header-left { display: flex; align-items: center; gap: 12px; }
+      .header-title { font-size: 16px; font-weight: 600; color: var(--nw-foreground); letter-spacing: -0.01em; }
+      .header-right { display: flex; align-items: center; gap: 16px; }
+      .header-stat {
+        font-size: 13px;
+        color: var(--nw-muted-foreground);
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .header-stat strong { color: var(--nw-foreground); font-weight: 600; }
+      .content-wrapper {
+        flex: 1;
+        display: flex;
+        min-height: 0;
+      }
+      .main-content {
+        flex: 1;
+        padding: 24px;
+        overflow-y: auto;
+        min-width: 0;
+      }
+      .ai-panel {
+        width: 300px;
+        flex-shrink: 0;
+        border-left: 1px solid var(--nw-border);
+        background: var(--nw-neutral-50);
+        display: flex;
+        flex-direction: column;
+        height: calc(100vh - 56px);
+        position: sticky;
+        top: 56px;
+      }
+      .ai-panel-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 16px 20px;
+        border-bottom: 1px solid var(--nw-border);
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--nw-foreground);
+      }
+      .ai-panel-header svg { width: 18px; height: 18px; color: var(--nw-primary); }
+      .ai-panel-body {
+        flex: 1;
+        overflow-y: auto;
+        padding: 16px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .ai-suggestion {
+        background: var(--nw-background);
+        border: 1px solid var(--nw-border);
+        border-radius: 8px;
+        padding: 12px 14px;
+        font-size: 13px;
+        line-height: 1.5;
+        color: var(--nw-neutral-700);
+      }
+      .ai-suggestion-title {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--nw-primary-600);
+        margin-bottom: 6px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .ai-suggestion-title svg { width: 14px; height: 14px; }
+      .ai-suggestion p { margin: 0; }
+      .ai-chat-input-wrap {
+        padding: 12px 16px;
+        border-top: 1px solid var(--nw-border);
+      }
+      .ai-chat-input {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+      .ai-chat-input input {
+        flex: 1;
+        border: 1px solid var(--nw-border);
+        border-radius: 8px;
+        padding: 8px 12px;
+        font-size: 13px;
+        background: var(--nw-background);
+        color: var(--nw-foreground);
+        outline: none;
+      }
+      .ai-chat-input input:focus { border-color: var(--nw-primary); }
+      .ai-chat-input button {
+        width: 36px;
+        height: 36px;
+        border: none;
+        border-radius: 8px;
+        background: var(--nw-primary);
+        color: var(--nw-primary-foreground);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .ai-chat-input button:hover { background: var(--nw-primary-600); }
+      .ai-chat-input button svg { width: 16px; height: 16px; }
+      .btn-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 7px 16px;
+        border: none;
+        border-radius: 8px;
+        background: var(--nw-primary);
+        color: var(--nw-primary-foreground);
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 140ms ease;
+      }
+      .btn-primary:hover { background: var(--nw-primary-600); }
+      .btn-primary svg { width: 15px; height: 15px; }
+      .btn-ghost {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 7px 14px;
+        border: 1px solid var(--nw-border);
+        border-radius: 8px;
+        background: var(--nw-background);
+        color: var(--nw-neutral-700);
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 140ms ease;
+      }
+      .btn-ghost:hover { background: var(--nw-neutral-100); }
+      .btn-ghost svg { width: 15px; height: 15px; }
+      .btn-ghost.btn-sm { padding: 5px 8px; gap: 4px; }
+      .btn-ghost.btn-sm svg { width: 16px; height: 16px; }
+      .card {
+        background: var(--nw-background);
+        border: 1px solid var(--nw-border);
+        border-radius: 12px;
+        padding: 20px;
+      }
+      .card-title {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--nw-foreground);
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 2px 8px;
+        border-radius: 9999px;
+        font-size: 12px;
+        font-weight: 500;
+      }
+      .badge-success { background: rgba(91,170,117,0.12); color: #4A8A5E; }
+      .badge-warning { background: rgba(212,154,78,0.12); color: #B07A38; }
+      .badge-error { background: rgba(201,107,107,0.12); color: #A05050; }
+      .badge-info { background: rgba(128,168,224,0.12); color: #4A6FA0; }
+      .badge-neutral { background: var(--nw-neutral-100); color: var(--nw-neutral-600); }
+      /* Lucide icon sizing */
+      [data-lucide] { width: 18px; height: 18px; }
+    </style>
+    <style>
+      /* Mobile menu button */
+      .mobile-menu-btn {
+        display: none;
+        width: 36px;
+        height: 36px;
+        border: none;
+        border-radius: 8px;
+        background: transparent;
+        color: var(--nw-neutral-600);
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+      }
+      .mobile-menu-btn svg { width: 20px; height: 20px; }
+
+      /* Extra responsive enhancements */
+      @media (max-width: 900px) {
+        .ai-panel { display: none; }
+        .mobile-menu-btn { display: inline-flex; }
+        .sidebar {
+          position: fixed;
+          left: 0;
+          top: 0;
+          transform: translateX(-100%);
+          transition: transform 260ms ease;
+          box-shadow: 4px 0 24px rgba(15,19,24,0.12);
+        }
+        .sidebar.open { transform: translateX(0); }
+        .sidebar-overlay {
+          position: fixed;
+          inset: 0;
+          background: rgba(15,19,24,0.35);
+          z-index: 19;
+          display: none;
+        }
+        .sidebar-overlay.open { display: block; }
+        .main-content { padding: 16px; }
+        .top-header { padding: 0 16px; }
+        .header-stat { display: none; }
+        .header-stat:first-child { display: inline-flex; }
+        .chapter-sidebar, .notes-panel { display: none; }
+        .writing-workspace { flex-direction: column; height: auto; }
+        .editor-area { padding: 16px; }
+        .filter-btn span { display: none; }
+        .mini-card { width: 120px; }
+      }
+      @media (max-width: 640px) {
+        .top-header { height: 52px; }
+        .header-title { font-size: 15px; }
+        .main-content { padding: 12px; }
+        .card { padding: 14px; }
+        .writing-workspace { border: none; border-radius: 0; }
+        .editor-toolbar { flex-wrap: wrap; }
+        .chapter-title-input { font-size: 18px; width: 100%; }
+        .grid.grid-cols-4 { grid-template-columns: repeat(2, 1fr); }
+        .grid.grid-cols-3 { grid-template-columns: 1fr; }
+        .grid.grid-cols-3 > [style*="grid-column: span 2"] { grid-column: span 1 !important; }
+        .foreshadow-table { font-size: 12px; }
+        .foreshadow-table th, .foreshadow-table td { padding: 8px 10px; }
+        .works-grid { grid-template-columns: repeat(2, 1fr); }
+        .btn-ghost span, .btn-primary span { display: none; }
+        .btn-ghost, .btn-primary { padding: 7px 10px; }
+      }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased">
+    <div class="app-shell">
+    <div class="sidebar-overlay"></div>
+
+        <!-- ===== Left Sidebar ===== -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <div class="sidebar-logo-left">
+                    <svg class="xiaozhi-logo" viewBox="0 0 28 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M9 12 C9 7.5 13 5.5 17.5 6 C21.5 6.5 23.5 8.5 24.5 12 C23.5 15.5 21.5 17.5 17.5 18 C13 18.5 9 16.5 9 12 Z" fill="var(--nw-accent-medium)"/>
+                      <path d="M9 12 L3.5 6.5 L4 17.5 Z" fill="var(--nw-accent-soft)"/>
+                      <path d="M13 8 L17 16" stroke="var(--nw-background)" stroke-width="0.9" opacity="0.5" stroke-linecap="round"/>
+                      <path d="M16 7.5 L19.5 16.5" stroke="var(--nw-background)" stroke-width="0.9" opacity="0.5" stroke-linecap="round"/>
+                      <circle cx="21" cy="10" r="1.3" fill="var(--nw-background)"/>
+                    </svg>
+                    <span>小织</span>
+                </div>
+                <button class="sidebar-collapse-btn" data-dom-id="sidebar-collapse-btn" aria-label="收起侧边栏" title="收起/展开">
+                    <i data-lucide="panel-left-close"></i>
+                </button>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="index.html" class="nav-item " data-dom-id="nav-home" title="主页">
+                    <i data-lucide="layout-dashboard"></i><span>主页</span>
+                </a>
+                <a href="works.html" class="nav-item " data-dom-id="nav-works" title="作品中心">
+                    <i data-lucide="book-open"></i><span>作品中心</span>
+                </a>
+                <a href="writing.html" class="nav-item active" data-dom-id="nav-writing" title="写作页">
+                    <i data-lucide="pen-line"></i><span>写作页</span>
+                </a>
+                <a href="relationships.html" class="nav-item " data-dom-id="nav-relationships" title="关系表">
+                    <i data-lucide="users"></i><span>关系表</span>
+                </a>
+                <a href="plot.html" class="nav-item " data-dom-id="nav-plot" title="主线伏笔">
+                    <i data-lucide="git-branch"></i><span>主线伏笔</span>
+                </a>
+                <a href="worldview.html" class="nav-item " data-dom-id="nav-worldview" title="世界观">
+                    <i data-lucide="map"></i><span>世界观</span>
+                </a>
+                <a href="cards.html" class="nav-item " data-dom-id="nav-cards" title="抽卡表">
+                    <i data-lucide="layers"></i><span>抽卡表</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+                    <i data-lucide="circle-dot" style="width:8px;height:8px;color:var(--state-success);"></i>
+                    <span>自动保存已开启</span>
+                </div>
+                <span>v1.0 · 个人版</span>
+            </div>
+        </aside>
+
+        <!-- ===== Main Area ===== -->
+        <div class="main-area">
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="mobile-menu-btn" aria-label="打开菜单"><i data-lucide="menu"></i></button>
+                    
+                    <h1 class="header-title">写作</h1>
+                </div>
+                <div class="header-right">
+                    <span class="header-stat" id="writing-work-badge" style="display:none;"><i data-lucide="book-open" style="width:14px;height:14px;"></i> <strong></strong></span>
+                    <span class="header-stat"><i data-lucide="calendar" style="width:14px;height:14px;"></i> 2026年7月30日</span>
+                    <span class="header-stat">总字数 <strong>128,540</strong></span>
+                    <span class="header-stat">章节数 <strong>24</strong></span>
+                    <button class="btn-ghost"><i data-lucide="history"></i>历史版本</button><button class="btn-primary" data-dom-id="btn-save"><i data-lucide="save"></i>保存</button>
+                </div>
+            </header>
+
+            <div class="content-wrapper">
+                <main class="main-content">
+                    <style id="page-writing">
+  /* ===== Writing Workspace — Page Layout ===== */
+  .writing-workspace {
+    display: flex;
+    height: calc(100vh - 56px - 48px);
+    min-height: 460px;
+    background: var(--nw-background);
+    border: 1px solid var(--nw-border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  /* ---- 1. Chapter outline sidebar ---- */
+  .chapter-sidebar {
+    width: 220px;
+    flex-shrink: 0;
+    border-right: 1px solid var(--nw-border);
+    padding: 16px;
+    overflow-y: auto;
+    background: var(--nw-background);
+  }
+  .chapter-sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .chapter-sidebar-header > .chs-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--nw-foreground);
+    letter-spacing: -0.01em;
+  }
+  .chapter-add-btn {
+    width: 24px;
+    height: 24px;
+    border: none;
+    background: transparent;
+    color: var(--nw-neutral-500);
+    border-radius: 6px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 120ms ease, color 120ms ease;
+  }
+  .chapter-add-btn:hover { background: var(--nw-neutral-100); color: var(--nw-primary); }
+  .chapter-add-btn svg { width: 15px; height: 15px; }
+
+  .chapter-group { margin-bottom: 2px; }
+  .chapter-group-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 8px 6px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--nw-muted-foreground);
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+  }
+  .chapter-group-header svg { width: 14px; height: 14px; flex-shrink: 0; color: var(--nw-neutral-400); }
+  .chapter-group-header .grp-label { flex: 1; }
+  .chapter-group-count {
+    font-size: 10px;
+    font-weight: 500;
+    background: var(--nw-neutral-100);
+    color: var(--nw-neutral-500);
+    padding: 1px 6px;
+    border-radius: 9999px;
+  }
+  .chapter-group-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    padding-left: 2px;
+  }
+  .chapter-item {
+    display: block;
+    font-size: 13px;
+    line-height: 1.4;
+    padding: 6px 8px;
+    border-radius: 6px;
+    color: var(--nw-neutral-700);
+    cursor: pointer;
+    text-decoration: none;
+    border-left: 3px solid transparent;
+    transition: background 120ms ease, color 120ms ease;
+  }
+  .chapter-item:hover { background: var(--nw-neutral-100); color: var(--nw-foreground); }
+  .chapter-item.active {
+    background: var(--nw-primary-50);
+    color: var(--nw-primary-600);
+    border-left-color: var(--nw-primary);
+    font-weight: 500;
+  }
+  .chapter-item.current {
+    background: var(--nw-primary-50);
+    color: var(--nw-primary-600);
+    border-left-color: var(--nw-primary);
+    font-weight: 600;
+  }
+
+  /* ---- 2. Editor area ---- */
+  .editor-area {
+    flex: 1;
+    min-width: 0;
+    overflow-y: auto;
+    padding: 24px;
+    background: var(--nw-background);
+  }
+  .editor-inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .editor-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid var(--nw-border);
+    padding-bottom: 12px;
+  }
+  .chapter-title-input {
+    flex: 1;
+    min-width: 0;
+    font-size: 22px;
+    font-weight: 600;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--nw-foreground);
+    letter-spacing: -0.01em;
+  }
+  .word-count-badge { flex-shrink: 0; }
+  .toolbar-divider {
+    width: 1px;
+    height: 20px;
+    background: var(--nw-border);
+    margin: 0 2px;
+    flex-shrink: 0;
+  }
+  .editor-content {
+    min-height: 500px;
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--nw-foreground);
+    outline: none;
+  }
+  .editor-content p { margin-bottom: 18px; }
+  .editor-content p:last-child { margin-bottom: 0; }
+  .editor-statusbar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid var(--nw-border);
+    font-size: 12px;
+    color: var(--nw-muted-foreground);
+  }
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 9999px;
+    background: var(--state-success);
+    flex-shrink: 0;
+  }
+
+  /* ---- 3. Chapter notes panel ---- */
+  .notes-panel {
+    width: 200px;
+    flex-shrink: 0;
+    border-left: 1px solid var(--nw-border);
+    padding: 16px;
+    overflow-y: auto;
+    background: var(--nw-background);
+  }
+  .notes-section-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--nw-foreground);
+    margin-bottom: 12px;
+  }
+  .notes-section + .notes-section { margin-top: 20px; }
+  .notes-checklist {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--nw-neutral-700);
+  }
+  .check-item svg {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    color: var(--nw-neutral-400);
+  }
+  .check-item.done { color: var(--nw-neutral-500); }
+  .check-item.done svg { color: var(--state-success); }
+  .check-item.done span {
+    text-decoration: line-through;
+    text-decoration-color: var(--nw-neutral-300);
+  }
+  .notes-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .emotion-chart {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .emotion-axis {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: var(--nw-muted-foreground);
+    margin-top: 4px;
+  }
+  .ai-expand-btn {
+    width: 100%;
+    justify-content: center;
+    margin-top: 8px;
+  }
+                    </style>
+                    <div class="writing-workspace">
+                        <!-- 1. Chapter outline sidebar -->
+                        <aside class="chapter-sidebar">
+                            <div class="chapter-sidebar-header">
+                                <span class="chs-title">章节目录</span>
+                                <button class="chapter-add-btn" title="新建章节" data-dom-id="btn-add-chapter"><i data-lucide="plus"></i></button>
+                            </div>
+                            <div class="chapter-tree">
+                                <!-- 第一卷 -->
+                                <div class="chapter-group">
+                                    <div class="chapter-group-header">
+                                        <i data-lucide="chevron-down"></i>
+                                        <span class="grp-label">第一卷 · 星海初临</span>
+                                    </div>
+                                    <div class="chapter-group-items">
+                                        <a class="chapter-item active">第1章 序章：星海</a>
+                                        <a class="chapter-item">第2章 港口少年</a>
+                                        <a class="chapter-item">第3章 神秘信物</a>
+                                        <a class="chapter-item">第4章 初次邂逅</a>
+                                        <a class="chapter-item">第5章 暗流初现</a>
+                                    </div>
+                                </div>
+                                <!-- 第二卷 (collapsed) -->
+                                <div class="chapter-group">
+                                    <div class="chapter-group-header">
+                                        <i data-lucide="chevron-right"></i>
+                                        <span class="grp-label">第二卷 · 风起云涌</span>
+                                        <span class="chapter-group-count">13</span>
+                                    </div>
+                                    <div class="chapter-group-items" style="display:none;">
+                                        <a class="chapter-item">第6章 暴风雨夜</a>
+                                        <a class="chapter-item">第7章 暗巷追逐</a>
+                                        <a class="chapter-item">第8章 旧友重逢</a>
+                                        <a class="chapter-item">第9章 线索浮现</a>
+                                        <a class="chapter-item">第10章 午夜密会</a>
+                                        <a class="chapter-item">第11章 身份疑云</a>
+                                        <a class="chapter-item">第12章 潜入府邸</a>
+                                        <a class="chapter-item">第13章 档案之谜</a>
+                                        <a class="chapter-item">第14章 月下对峙</a>
+                                        <a class="chapter-item">第15章 意外盟友</a>
+                                        <a class="chapter-item">第16章 迷雾渐散</a>
+                                        <a class="chapter-item">第17章 暗棋布局</a>
+                                        <a class="chapter-item">第18章 风云骤变</a>
+                                    </div>
+                                </div>
+                                <!-- 第三卷 -->
+                                <div class="chapter-group">
+                                    <div class="chapter-group-header">
+                                        <i data-lucide="chevron-down"></i>
+                                        <span class="grp-label">第三卷 · 暗流涌动</span>
+                                    </div>
+                                    <div class="chapter-group-items">
+                                        <a class="chapter-item">第19章 真相碎片</a>
+                                        <a class="chapter-item">第20章 旧日暗线</a>
+                                        <a class="chapter-item">第21章 抉择时刻</a>
+                                        <a class="chapter-item">第22章 风暴前夕</a>
+                                        <a class="chapter-item">第23章 交汇之地</a>
+                                        <a class="chapter-item current">第24章 暗流涌动</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </aside>
+
+                        <!-- 2. Editor area -->
+                        <section class="editor-area">
+                            <div class="editor-inner">
+                                <div class="editor-toolbar">
+                                    <input type="text" class="chapter-title-input" value="第24章 暗流涌动" data-dom-id="chapter-title-input" />
+                                    <span class="badge badge-neutral word-count-badge" id="word-count-display">3,247 字</span>
+                                    <span class="toolbar-divider"></span>
+                                    <button class="btn-ghost btn-sm" title="加粗"><i data-lucide="bold"></i></button>
+                                    <button class="btn-ghost btn-sm" title="斜体"><i data-lucide="italic"></i></button>
+                                    <button class="btn-ghost btn-sm" title="标题"><i data-lucide="heading"></i></button>
+                                    <button class="btn-ghost btn-sm" title="引用"><i data-lucide="quote"></i></button>
+                                </div>
+                                <div class="editor-content" contenteditable="true" data-dom-id="editor-content">
+                                    <p>夜色如墨，星海港口的灯火在雾气中摇曳不定。林昭站在码头的尽头，海风掀起他的衣角，却吹不散他眉间的凝重。手中那封信已经被攥得皱巴巴的，上面的字迹在月光下若隐若现。</p>
+                                    <p>「你来了。」身后传来苏晚的声音，清冷而平静。林昭没有回头，只是将信递了过去。苏晚接过信，借着远处灯塔的光快速扫了一遍，嘴角微微抿紧。</p>
+                                    <p>「周远知道这件事了吗？」林昭终于转过身，目光落在苏晚手中那张泛黄的纸页上。苏晚摇了摇头，将信折好收入袖中。</p>
+                                    <p>「还不行。在确认叶青的立场之前，我们不能打草惊蛇。」苏晚的声音压得很低，仿佛怕惊动了暗处窥伺的目光。远处，一艘黑色的帆船正缓缓驶入港口，船帆上绣着一个林昭从未见过的徽记……</p>
+                                </div>
+                                <div class="editor-statusbar">
+                                    <span class="status-dot"></span>
+                                    <span>自动保存于 14:32</span>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- 3. Chapter notes panel -->
+                        <aside class="notes-panel">
+                            <div class="notes-section">
+                                <div class="notes-section-title">本章要点</div>
+                                <ul class="notes-checklist">
+                                    <li class="check-item done">
+                                        <i data-lucide="check-square"></i><span>陈默首次以盟友身份登场</span>
+                                    </li>
+                                    <li class="check-item done">
+                                        <i data-lucide="check-square"></i><span>玉佩伏笔回收铺垫</span>
+                                    </li>
+                                    <li class="check-item">
+                                        <i data-lucide="square"></i><span>叶青立场揭示</span>
+                                    </li>
+                                    <li class="check-item">
+                                        <i data-lucide="square"></i><span>黑帆船徽记伏笔埋设</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="notes-section">
+                                <div class="notes-section-title">涉及角色</div>
+                                <div class="notes-tags">
+                                    <span class="badge badge-neutral">林昭</span>
+                                    <span class="badge badge-neutral">苏晚</span>
+                                    <span class="badge badge-neutral">周远</span>
+                                    <span class="badge badge-neutral">叶青</span>
+                                </div>
+                            </div>
+                            <div class="notes-section">
+                                <div class="notes-section-title">情绪曲线</div>
+                                <svg class="emotion-chart" viewBox="0 0 180 84" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="本章情绪紧张度曲线">
+                                    <line x1="8" y1="72" x2="172" y2="72" stroke="var(--nw-border)" stroke-width="1"/>
+                                    <path d="M8,58 L50,44 L95,28 L140,12 L172,26 L172,72 L8,72 Z" fill="var(--nw-primary)" fill-opacity="0.08"/>
+                                    <polyline points="8,58 50,44 95,28 140,12 172,26" stroke="var(--nw-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <circle cx="8" cy="58" r="3" fill="var(--nw-background)" stroke="var(--nw-primary)" stroke-width="2"/>
+                                    <circle cx="50" cy="44" r="3" fill="var(--nw-background)" stroke="var(--nw-primary)" stroke-width="2"/>
+                                    <circle cx="95" cy="28" r="3" fill="var(--nw-background)" stroke="var(--nw-primary)" stroke-width="2"/>
+                                    <circle cx="140" cy="12" r="3.5" fill="var(--nw-primary)"/>
+                                    <circle cx="172" cy="26" r="3" fill="var(--nw-background)" stroke="var(--nw-primary)" stroke-width="2"/>
+                                </svg>
+                                <div class="emotion-axis">
+                                    <span>开头</span>
+                                    <span>高潮</span>
+                                    <span>结尾</span>
+                                </div>
+                            </div>
+                            <div class="notes-section" id="xz-chapter-foreshadows"></div>
+                        </aside>
+                    </div>
+                </main>
+
+                <!-- ===== Right AI Panel ===== -->
+                <aside class="ai-panel">
+                    <div class="ai-panel-header">
+                        <i data-lucide="sparkles"></i>
+                        <span>AI 助手</span>
+                        <span class="badge badge-info" style="margin-left:auto;font-size:11px;">Agent 就绪</span>
+                    </div>
+                    <div class="ai-panel-body">
+                        <div class="ai-suggestion">
+                            <div class="ai-suggestion-title"><i data-lucide="lightbulb"></i>续写建议</div>
+                            <p>当前场景适合加入环境描写来烘托紧张氛围。建议描写海雾的变化，与角色心理形成呼应。</p>
+                        </div>
+                        <div class="ai-suggestion">
+                            <div class="ai-suggestion-title"><i data-lucide="bar-chart-3"></i>文风分析</div>
+                            <p>本段叙事节奏良好，对话与描写比例约4:6。苏晚的台词简练有力，符合其冷静性格设定。</p>
+                        </div>
+                        <div class="ai-suggestion">
+                            <div class="ai-suggestion-title"><i data-lucide="link"></i>连贯性检查</div>
+                            <p>检测到第22章提到的「港口的黑色帆船」与本章内容呼应，伏笔连贯性良好。</p>
+                        </div>
+                        <button class="btn-primary ai-expand-btn" data-dom-id="ai-expand-btn"><i data-lucide="wand-sparkles"></i>生成本段扩写</button>
+                    </div>
+                    <div class="ai-chat-input-wrap">
+                        <div class="ai-chat-input">
+                            <input type="text" placeholder="向 AI 提问或输入指令...">
+                            <button data-dom-id="ai-send-btn"><i data-lucide="send"></i></button>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+    <script>lucide.createIcons();</script>
+    <script>
+// Sidebar collapse persistence
+(function(){
+  var shell = document.querySelector('.app-shell');
+  var btn = document.querySelector('[data-dom-id="sidebar-collapse-btn"]');
+  var key = 'xiaozhi_sidebar_collapsed';
+  function apply(state) {
+    if (!shell) return;
+    if (state) shell.classList.add('sidebar-collapsed');
+    else shell.classList.remove('sidebar-collapsed');
+    if (btn) btn.setAttribute('aria-expanded', state ? 'false' : 'true');
+  }
+  var saved = localStorage.getItem(key);
+  apply(saved === '1');
+  if (btn) {
+    btn.addEventListener('click', function() {
+      var willCollapse = !shell.classList.contains('sidebar-collapsed');
+      apply(willCollapse);
+      localStorage.setItem(key, willCollapse ? '1' : '0');
+    });
+  }
+})();
+</script>
+    <script>
+// Live word count
+var editor = document.querySelector('[contenteditable]');
+var counter = document.getElementById('word-count-display');
+if (editor) {
+    editor.addEventListener('input', function() {
+        var text = editor.innerText || '';
+        var count = text.replace(/\s/g, '').length;
+        var badge = document.querySelector('.word-count-badge');
+        if (badge) badge.textContent = count.toLocaleString() + ' 字';
+    });
+}
+// Chapter list toggle
+document.querySelectorAll('.chapter-group-header').forEach(function(header) {
+    header.addEventListener('click', function() {
+        var group = header.nextElementSibling;
+        if (group) group.style.display = group.style.display === 'none' ? 'block' : 'none';
+    });
+});
+// Add new chapter
+var addChapterBtn = document.querySelector('[data-dom-id="btn-add-chapter"]');
+if (addChapterBtn) {
+    addChapterBtn.addEventListener('click', function() {
+        var title = prompt('请输入新章节标题：', '第25章 新章节');
+        if (!title) return;
+        var groups = document.querySelectorAll('.chapter-group');
+        var targetItems = null;
+        groups.forEach(function(g) {
+            var items = g.querySelector('.chapter-group-items');
+            if (items && items.style.display !== 'none') targetItems = items;
+        });
+        if (!targetItems && groups.length > 0) {
+            var lastGroup = groups[groups.length - 1];
+            targetItems = lastGroup.querySelector('.chapter-group-items');
+            if (targetItems) targetItems.style.display = 'block';
+        }
+        if (targetItems) {
+            var item = document.createElement('a');
+            item.className = 'chapter-item';
+            item.textContent = title;
+            targetItems.appendChild(item);
+            var header = targetItems.previousElementSibling;
+            if (header) {
+                var badge = header.querySelector('.chapter-group-count');
+                if (badge) {
+                    badge.textContent = targetItems.querySelectorAll('.chapter-item').length;
+                }
+            }
+            targetItems.scrollTop = targetItems.scrollHeight;
+        }
+    });
+}
+// Sync current work from works center
+document.addEventListener('DOMContentLoaded', function() {
+    try {
+        var works = JSON.parse(localStorage.getItem('xiaozhi_works')) || [];
+        var currentId = localStorage.getItem('xiaozhi_current_work_id');
+        var work = works.find(function(w){ return w.id === currentId; });
+        var badge = document.getElementById('writing-work-badge');
+        if (work && badge) {
+            badge.querySelector('strong').textContent = work.title;
+            badge.style.display = 'inline-flex';
+        }
+    } catch(e) {}
+});
+</script>
+<script src="assets/xiaozhi-app.js"></script>
+</body>
+</html>

@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="zh" class="light" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>世界观 — 小织</title>
+    <style id="theme-vars">
+/* ============================================================
+   小织 — Novel Workstation Brand CSS
+   Style: Soft Blue-Gray (柔蓝灰调)
+   Palette source: user-provided color card
+   Prefix: nw
+   ============================================================ */
+
+/* ---- Root Tokens (Light Mode / Default) ---- */
+:root {
+  /* Primary hue — soft blue-gray (from user palette) */
+  --nw-primary-50:  #F0F4FA;
+  --nw-primary-100: #E8E8F0;
+  --nw-primary-200: #D8E0F0;
+  --nw-primary-300: #B0C8E8;
+  --nw-primary-400: #80A8E0;
+  --nw-primary-500: #6B8EC4;
+  --nw-primary-600: #4A6FA0;
+  --nw-primary-700: #3A5680;
+  --nw-primary-800: #2A4060;
+  --nw-primary-900: #1A2A40;
+
+  /* Neutral scale — warm-tinted grays */
+  --nw-neutral-0:   #FFFFFF;
+  --nw-neutral-50:  #F8F9FB;
+  --nw-neutral-100: #F0F0F0;
+  --nw-neutral-200: #E4E6EC;
+  --nw-neutral-300: #CDD2DC;
+  --nw-neutral-400: #9BA1AE;
+  --nw-neutral-500: #6B7280;
+  --nw-neutral-600: #4A5260;
+  --nw-neutral-700: #363D4A;
+  --nw-neutral-800: #1E242E;
+  --nw-neutral-900: #0F1318;
+
+  /* State colors */
+  --state-success: #5BAA75;
+  --state-warning: #D49A4E;
+  --state-error:   #C96B6B;
+  --state-info:    #80A8E0;
+
+  /* Radius scale (restrained) */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+
+  /* ---- Semantic Aliases (Light) ---- */
+  --nw-background: #FFFFFF;
+  --nw-foreground: #1E242E;
+  --nw-card: #F8F9FB;
+  --nw-card-foreground: #1E242E;
+  --nw-popover: #FFFFFF;
+  --nw-popover-foreground: #1E242E;
+  --nw-primary: #4A6FA0;
+  --nw-primary-foreground: #FFFFFF;
+  --nw-muted: #F0F0F0;
+  --nw-muted-foreground: #6B7280;
+  --nw-border: #E4E6EC;
+  --nw-input: #E4E6EC;
+  --nw-ring: #80A8E0;
+  --nw-radius-small: 4px;
+  --nw-radius-medium: 8px;
+  --nw-radius-large: 12px;
+  --nw-accent-soft: #B0C8E8;
+  --nw-accent-medium: #80A8E0;
+  --nw-accent-pale: #D8E0F0;
+  --nw-accent-lavender: #E8E8F0;
+
+  /* Typography */
+  --nw-font-sans: "Inter", system-ui, -apple-system, "Segoe UI", "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  --nw-font-mono: "JetBrains Mono", "Fira Code", "Cascadia Code", "SF Mono", Consolas, monospace;
+}
+
+/* ---- Dark Mode ---- */
+html.dark {
+  --nw-background: #0F1318;
+  --nw-foreground: #E4E6EC;
+  --nw-card: #1E242E;
+  --nw-card-foreground: #E4E6EC;
+  --nw-popover: #1E242E;
+  --nw-popover-foreground: #E4E6EC;
+  --nw-primary: #80A8E0;
+  --nw-primary-foreground: #0F1318;
+  --nw-muted: #2A2E38;
+  --nw-muted-foreground: #9BA1AE;
+  --nw-border: #2A2E38;
+  --nw-input: #2A2E38;
+  --nw-ring: #80A8E0;
+  --nw-accent-soft: #3A5680;
+  --nw-accent-medium: #4A6FA0;
+  --nw-accent-pale: #2A4060;
+  --nw-accent-lavender: #363D4A;
+}
+
+/* ---- Typography Classes ---- */
+.font-sans { font-family: var(--nw-font-sans); }
+.font-mono { font-family: var(--nw-font-mono); }
+
+.text-xs   { font-size: 12px; line-height: 16px; }
+.text-sm   { font-size: 14px; line-height: 20px; }
+.text-base { font-size: 16px; line-height: 24px; }
+.text-lg   { font-size: 18px; line-height: 28px; }
+.text-xl   { font-size: 20px; line-height: 28px; }
+.text-2xl  { font-size: 24px; line-height: 32px; }
+.text-3xl  { font-size: 30px; line-height: 36px; }
+
+.font-normal  { font-weight: 400; }
+.font-medium  { font-weight: 500; }
+.font-semibold{ font-weight: 600; }
+.font-bold    { font-weight: 700; }
+
+.tracking-tight  { letter-spacing: -0.025em; }
+.tracking-normal { letter-spacing: 0; }
+
+/* ---- Base Reset ---- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-family: var(--nw-font-sans); -webkit-font-smoothing: antialiased; }
+body { background: var(--nw-background); color: var(--nw-foreground); }
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-background: var(--nw-background);
+    --color-foreground: var(--nw-foreground);
+    --color-card: var(--nw-card);
+    --color-card-foreground: var(--nw-card-foreground);
+    --color-popover: var(--nw-popover);
+    --color-popover-foreground: var(--nw-popover-foreground);
+    --color-primary: var(--nw-primary);
+    --color-primary-foreground: var(--nw-primary-foreground);
+    --color-muted: var(--nw-muted);
+    --color-muted-foreground: var(--nw-muted-foreground);
+    --color-border: var(--nw-border);
+    --color-input: var(--nw-input);
+    --color-ring: var(--nw-ring);
+    --radius-sm: var(--nw-radius-small);
+    --radius-md: var(--nw-radius-medium);
+    --radius-lg: var(--nw-radius-large);
+  }
+  @layer base {
+    body { background: var(--nw-background); color: var(--nw-foreground); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style id="semantic-token-fallback">
+      .bg-background { background-color: var(--nw-background); }
+      .text-background { color: var(--nw-background); }
+      .border-background { border-color: var(--nw-background); }
+      .ring-background { --tw-ring-color: var(--nw-background); }
+      .bg-foreground { background-color: var(--nw-foreground); }
+      .text-foreground { color: var(--nw-foreground); }
+      .border-foreground { border-color: var(--nw-foreground); }
+      .ring-foreground { --tw-ring-color: var(--nw-foreground); }
+      .bg-card { background-color: var(--nw-card); }
+      .text-card { color: var(--nw-card); }
+      .border-card { border-color: var(--nw-card); }
+      .ring-card { --tw-ring-color: var(--nw-card); }
+      .bg-card-foreground { background-color: var(--nw-card-foreground); }
+      .text-card-foreground { color: var(--nw-card-foreground); }
+      .border-card-foreground { border-color: var(--nw-card-foreground); }
+      .ring-card-foreground { --tw-ring-color: var(--nw-card-foreground); }
+      .bg-popover { background-color: var(--nw-popover); }
+      .text-popover { color: var(--nw-popover); }
+      .border-popover { border-color: var(--nw-popover); }
+      .ring-popover { --tw-ring-color: var(--nw-popover); }
+      .bg-popover-foreground { background-color: var(--nw-popover-foreground); }
+      .text-popover-foreground { color: var(--nw-popover-foreground); }
+      .border-popover-foreground { border-color: var(--nw-popover-foreground); }
+      .ring-popover-foreground { --tw-ring-color: var(--nw-popover-foreground); }
+      .bg-primary { background-color: var(--nw-primary); }
+      .text-primary { color: var(--nw-primary); }
+      .border-primary { border-color: var(--nw-primary); }
+      .ring-primary { --tw-ring-color: var(--nw-primary); }
+      .bg-primary-foreground { background-color: var(--nw-primary-foreground); }
+      .text-primary-foreground { color: var(--nw-primary-foreground); }
+      .border-primary-foreground { border-color: var(--nw-primary-foreground); }
+      .ring-primary-foreground { --tw-ring-color: var(--nw-primary-foreground); }
+      .bg-muted { background-color: var(--nw-muted); }
+      .text-muted { color: var(--nw-muted); }
+      .border-muted { border-color: var(--nw-muted); }
+      .ring-muted { --tw-ring-color: var(--nw-muted); }
+      .bg-muted-foreground { background-color: var(--nw-muted-foreground); }
+      .text-muted-foreground { color: var(--nw-muted-foreground); }
+      .border-muted-foreground { border-color: var(--nw-muted-foreground); }
+      .ring-muted-foreground { --tw-ring-color: var(--nw-muted-foreground); }
+      .bg-border { background-color: var(--nw-border); }
+      .text-border { color: var(--nw-border); }
+      .border-border { border-color: var(--nw-border); }
+      .ring-border { --tw-ring-color: var(--nw-border); }
+      .bg-input { background-color: var(--nw-input); }
+      .text-input { color: var(--nw-input); }
+      .border-input { border-color: var(--nw-input); }
+      .ring-input { --tw-ring-color: var(--nw-input); }
+      .bg-ring { background-color: var(--nw-ring); }
+      .text-ring { color: var(--nw-ring); }
+      .border-ring { border-color: var(--nw-ring); }
+      .ring-ring { --tw-ring-color: var(--nw-ring); }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+    </style>
+    <style id="critical-layout">
+      /* ===== App Shell — Layout-Safe Static CSS ===== */
+      .app-shell {
+        display: flex;
+        min-height: 100vh;
+        width: 100%;
+        background: var(--nw-background);
+      }
+      .sidebar {
+        width: 232px;
+        flex-shrink: 0;
+        border-right: 1px solid var(--nw-border);
+        background: var(--nw-neutral-50);
+        display: flex;
+        flex-direction: column;
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        overflow-y: auto;
+        z-index: 20;
+      }
+      .sidebar-logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 20px 20px 16px;
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--nw-foreground);
+        letter-spacing: -0.02em;
+      }
+      .sidebar-logo svg {
+        width: 24px;
+        height: 24px;
+        flex-shrink: 0;
+      }
+      .sidebar-nav {
+        flex: 1;
+        padding: 8px 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .nav-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 9px 12px;
+        border-radius: 8px;
+        font-size: 14px;
+        color: var(--nw-neutral-600);
+        text-decoration: none;
+        transition: background 140ms ease, color 140ms ease;
+        cursor: pointer;
+      }
+      .nav-item svg { width: 18px; height: 18px; flex-shrink: 0; }
+      .nav-item:hover { background: var(--nw-neutral-100); color: var(--nw-foreground); }
+      .nav-item.active {
+        background: var(--nw-primary-100);
+        color: var(--nw-primary-600);
+        font-weight: 500;
+      }
+      .sidebar-footer {
+        padding: 12px 16px;
+        border-top: 1px solid var(--nw-border);
+        font-size: 12px;
+        color: var(--nw-neutral-400);
+      }
+      .main-area {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+      }
+      .top-header {
+        height: 56px;
+        flex-shrink: 0;
+        border-bottom: 1px solid var(--nw-border);
+        background: var(--nw-background);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 24px;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+      .header-left { display: flex; align-items: center; gap: 12px; }
+      .header-title { font-size: 16px; font-weight: 600; color: var(--nw-foreground); letter-spacing: -0.01em; }
+      .header-right { display: flex; align-items: center; gap: 16px; }
+      .header-stat {
+        font-size: 13px;
+        color: var(--nw-muted-foreground);
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .header-stat strong { color: var(--nw-foreground); font-weight: 600; }
+      .content-wrapper {
+        flex: 1;
+        display: flex;
+        min-height: 0;
+      }
+      .main-content {
+        flex: 1;
+        padding: 24px;
+        overflow-y: auto;
+        min-width: 0;
+      }
+      .ai-panel {
+        width: 300px;
+        flex-shrink: 0;
+        border-left: 1px solid var(--nw-border);
+        background: var(--nw-neutral-50);
+        display: flex;
+        flex-direction: column;
+        height: calc(100vh - 56px);
+        position: sticky;
+        top: 56px;
+      }
+      .ai-panel-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 16px 20px;
+        border-bottom: 1px solid var(--nw-border);
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--nw-foreground);
+      }
+      .ai-panel-header svg { width: 18px; height: 18px; color: var(--nw-accent-medium); }
+      .ai-panel-body {
+        flex: 1;
+        overflow-y: auto;
+        padding: 16px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .ai-suggestion {
+        background: var(--nw-background);
+        border: 1px solid var(--nw-border);
+        border-radius: 8px;
+        padding: 12px 14px;
+        font-size: 13px;
+        line-height: 1.5;
+        color: var(--nw-neutral-700);
+      }
+      .ai-suggestion-title {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--nw-primary-600);
+        margin-bottom: 6px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .ai-chat-input-wrap {
+        padding: 12px 16px;
+        border-top: 1px solid var(--nw-border);
+      }
+      .ai-chat-input {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+      .ai-chat-input input {
+        flex: 1;
+        border: 1px solid var(--nw-border);
+        border-radius: 8px;
+        padding: 8px 12px;
+        font-size: 13px;
+        background: var(--nw-background);
+        color: var(--nw-foreground);
+        outline: none;
+      }
+      .ai-chat-input input:focus { border-color: var(--nw-accent-medium); }
+      .ai-chat-input button {
+        width: 36px;
+        height: 36px;
+        border: none;
+        border-radius: 8px;
+        background: var(--nw-primary);
+        color: var(--nw-primary-foreground);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .ai-chat-input button:hover { background: var(--nw-primary-700); }
+      .ai-chat-input button svg { width: 16px; height: 16px; }
+      .btn-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 7px 16px;
+        border: none;
+        border-radius: 8px;
+        background: var(--nw-primary);
+        color: var(--nw-primary-foreground);
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 140ms ease;
+      }
+      .btn-primary:hover { background: var(--nw-primary-700); }
+      .btn-primary svg { width: 15px; height: 15px; }
+      .btn-ghost {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 7px 14px;
+        border: 1px solid var(--nw-border);
+        border-radius: 8px;
+        background: var(--nw-background);
+        color: var(--nw-neutral-700);
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 140ms ease;
+      }
+      .btn-ghost:hover { background: var(--nw-neutral-100); }
+      .btn-ghost svg { width: 15px; height: 15px; }
+      .card {
+        background: var(--nw-background);
+        border: 1px solid var(--nw-border);
+        border-radius: 12px;
+        padding: 20px;
+      }
+      .card-title {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--nw-foreground);
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 2px 8px;
+        border-radius: 9999px;
+        font-size: 12px;
+        font-weight: 500;
+      }
+      .badge-success { background: rgba(91,170,117,0.12); color: #4A8A5E; }
+      .badge-warning { background: rgba(212,154,78,0.12); color: #B07A38; }
+      .badge-error { background: rgba(201,107,107,0.12); color: #A05050; }
+      .badge-info { background: rgba(128,168,224,0.12); color: #4A6FA0; }
+      .badge-neutral { background: var(--nw-neutral-100); color: var(--nw-neutral-600); }
+      /* Lucide icon sizing */
+      [data-lucide] { width: 18px; height: 18px; }
+      /* 小织 fish logo */
+      .xiaozhi-logo { width: 24px; height: 24px; flex-shrink: 0; }
+      .sidebar-logo-left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        overflow: hidden;
+      }
+      .sidebar-collapse-btn {
+        width: 28px;
+        height: 28px;
+        border: none;
+        border-radius: 6px;
+        background: transparent;
+        color: var(--nw-neutral-400);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        transition: background 140ms ease, color 140ms ease;
+      }
+      .sidebar-collapse-btn:hover {
+        background: var(--nw-neutral-100);
+        color: var(--nw-neutral-600);
+      }
+      .sidebar-collapse-btn svg { width: 16px; height: 16px; }
+      /* Collapsed state */
+      .app-shell.sidebar-collapsed .sidebar {
+        width: 56px;
+      }
+      .app-shell.sidebar-collapsed .sidebar-logo {
+        padding: 20px 16px 16px;
+        justify-content: center;
+      }
+      .app-shell.sidebar-collapsed .sidebar-logo-left span { display: none; }
+      .app-shell.sidebar-collapsed .sidebar-collapse-btn {
+        transform: rotate(180deg);
+      }
+      .app-shell.sidebar-collapsed .sidebar-nav {
+        padding: 8px 10px;
+        align-items: center;
+      }
+      .app-shell.sidebar-collapsed .nav-item {
+        justify-content: center;
+        padding: 10px;
+        width: 36px;
+        height: 36px;
+      }
+      .app-shell.sidebar-collapsed .nav-item span { display: none; }
+      .app-shell.sidebar-collapsed .sidebar-footer {
+        display: none;
+      }
+
+    </style>
+    <style>
+      /* Mobile menu button */
+      .mobile-menu-btn {
+        display: none;
+        width: 36px;
+        height: 36px;
+        border: none;
+        border-radius: 8px;
+        background: transparent;
+        color: var(--nw-neutral-600);
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+      }
+      .mobile-menu-btn svg { width: 20px; height: 20px; }
+
+      /* Extra responsive enhancements */
+      @media (max-width: 900px) {
+        .ai-panel { display: none; }
+        .mobile-menu-btn { display: inline-flex; }
+        .sidebar {
+          position: fixed;
+          left: 0;
+          top: 0;
+          transform: translateX(-100%);
+          transition: transform 260ms ease;
+          box-shadow: 4px 0 24px rgba(15,19,24,0.12);
+        }
+        .sidebar.open { transform: translateX(0); }
+        .sidebar-overlay {
+          position: fixed;
+          inset: 0;
+          background: rgba(15,19,24,0.35);
+          z-index: 19;
+          display: none;
+        }
+        .sidebar-overlay.open { display: block; }
+        .main-content { padding: 16px; }
+        .top-header { padding: 0 16px; }
+        .header-stat { display: none; }
+        .header-stat:first-child { display: inline-flex; }
+        .chapter-sidebar, .notes-panel { display: none; }
+        .writing-workspace { flex-direction: column; height: auto; }
+        .editor-area { padding: 16px; }
+        .filter-btn span { display: none; }
+        .mini-card { width: 120px; }
+      }
+      @media (max-width: 640px) {
+        .top-header { height: 52px; }
+        .header-title { font-size: 15px; }
+        .main-content { padding: 12px; }
+        .card { padding: 14px; }
+        .writing-workspace { border: none; border-radius: 0; }
+        .editor-toolbar { flex-wrap: wrap; }
+        .chapter-title-input { font-size: 18px; width: 100%; }
+        .grid.grid-cols-4 { grid-template-columns: repeat(2, 1fr); }
+        .grid.grid-cols-3 { grid-template-columns: 1fr; }
+        .grid.grid-cols-3 > [style*="grid-column: span 2"] { grid-column: span 1 !important; }
+        .foreshadow-table { font-size: 12px; }
+        .foreshadow-table th, .foreshadow-table td { padding: 8px 10px; }
+        .works-grid { grid-template-columns: repeat(2, 1fr); }
+        .btn-ghost span, .btn-primary span { display: none; }
+        .btn-ghost, .btn-primary { padding: 7px 10px; }
+      }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased">
+    <div class="app-shell">
+    <div class="sidebar-overlay"></div>
+
+        <!-- ===== Left Sidebar ===== -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <div class="sidebar-logo-left">
+                    <svg class="xiaozhi-logo" viewBox="0 0 28 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M9 12 C9 7.5 13 5.5 17.5 6 C21.5 6.5 23.5 8.5 24.5 12 C23.5 15.5 21.5 17.5 17.5 18 C13 18.5 9 16.5 9 12 Z" fill="var(--nw-accent-medium)"/>
+                      <path d="M9 12 L3.5 6.5 L4 17.5 Z" fill="var(--nw-accent-soft)"/>
+                      <path d="M13 8 L17 16" stroke="var(--nw-background)" stroke-width="0.9" opacity="0.5" stroke-linecap="round"/>
+                      <path d="M16 7.5 L19.5 16.5" stroke="var(--nw-background)" stroke-width="0.9" opacity="0.5" stroke-linecap="round"/>
+                      <circle cx="21" cy="10" r="1.3" fill="var(--nw-background)"/>
+                    </svg>
+                    <span>小织</span>
+                </div>
+                <button class="sidebar-collapse-btn" data-dom-id="sidebar-collapse-btn" aria-label="收起侧边栏" title="收起/展开">
+                    <i data-lucide="panel-left-close"></i>
+                </button>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="index.html" class="nav-item " data-dom-id="nav-home" title="主页">
+                    <i data-lucide="layout-dashboard"></i><span>主页</span>
+                </a>
+                <a href="works.html" class="nav-item " data-dom-id="nav-works" title="作品中心">
+                    <i data-lucide="book-open"></i><span>作品中心</span>
+                </a>
+                <a href="writing.html" class="nav-item " data-dom-id="nav-writing" title="写作页">
+                    <i data-lucide="pen-line"></i><span>写作页</span>
+                </a>
+                <a href="relationships.html" class="nav-item " data-dom-id="nav-relationships" title="关系表">
+                    <i data-lucide="users"></i><span>关系表</span>
+                </a>
+                <a href="plot.html" class="nav-item " data-dom-id="nav-plot" title="主线伏笔">
+                    <i data-lucide="git-branch"></i><span>主线伏笔</span>
+                </a>
+                <a href="worldview.html" class="nav-item active" data-dom-id="nav-worldview" title="世界观">
+                    <i data-lucide="map"></i><span>世界观</span>
+                </a>
+                <a href="cards.html" class="nav-item " data-dom-id="nav-cards" title="抽卡表">
+                    <i data-lucide="layers"></i><span>抽卡表</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+                    <i data-lucide="circle-dot" style="width:8px;height:8px;color:var(--state-success);"></i>
+                    <span>自动保存已开启</span>
+                </div>
+                <span>v1.0 · 个人版</span>
+            </div>
+        </aside>
+
+        <!-- ===== Main Area ===== -->
+        <div class="main-area">
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="mobile-menu-btn" aria-label="打开菜单"><i data-lucide="menu"></i></button>
+                    
+                    <h1 class="header-title">世界观</h1>
+                </div>
+                <div class="header-right">
+                    <span class="header-stat" data-work-sync="badge" style="display:none;"><i data-lucide="book-open" style="width:14px;height:14px;"></i> <strong data-work-sync="title"></strong></span>
+                    <span class="header-stat"><i data-lucide="calendar" style="width:14px;height:14px;"></i> 2026年7月30日</span>
+                    <span class="header-stat">总字数 <strong>128,540</strong></span>
+                    <span class="header-stat">章节数 <strong>24</strong></span>
+                    <button class="btn-ghost"><i data-lucide="download"></i>导出设定</button><button class="btn-primary" data-dom-id="btn-add-location"><i data-lucide="map-pin"></i>添加标点</button>
+                </div>
+            </header>
+
+            <div class="content-wrapper">
+                <main class="main-content">
+                    <div style="display:flex;gap:16px;align-items:stretch;">
+    <!-- ===== Map Canvas ===== -->
+    <div class="card" style="flex:1;height:calc(100vh - 200px);position:relative;overflow:hidden;padding:0;">
+        <svg width="100%" height="100%" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid slice" style="display:block;">
+            <!-- Water background -->
+            <rect x="0" y="0" width="800" height="500" fill="var(--nw-accent-lavender)" opacity="0.3"/>
+
+            <!-- Continent landmass -->
+            <path d="M 130,90 L 230,55 L 360,60 L 480,50 L 600,70 L 700,120 L 730,210 L 735,310 L 700,400 L 640,455 L 540,465 L 430,460 L 330,465 L 230,440 L 165,400 L 150,340 L 210,300 L 185,275 L 130,255 L 95,200 L 115,130 Z"
+                  fill="var(--nw-accent-pale)" opacity="0.5"/>
+
+            <!-- Forest areas -->
+            <path d="M 348,172 Q 378,158 408,168 Q 422,188 402,203 Q 372,208 352,193 Q 342,183 348,172 Z"
+                  fill="var(--state-success)" opacity="0.15"/>
+            <path d="M 588,135 Q 612,118 642,128 Q 672,143 663,172 Q 640,188 608,178 Q 583,165 588,135 Z"
+                  fill="var(--state-success)" opacity="0.15"/>
+            <path d="M 468,388 Q 498,373 528,383 Q 543,403 523,418 Q 488,423 468,413 Q 458,398 468,388 Z"
+                  fill="var(--state-success)" opacity="0.15"/>
+
+            <!-- Mountain ranges -->
+            <polygon points="370,150 395,95 420,150" fill="var(--nw-neutral-300)" opacity="0.4"/>
+            <polygon points="425,160 450,90 475,160" fill="var(--nw-neutral-300)" opacity="0.4"/>
+            <polygon points="240,355 265,285 290,355" fill="var(--nw-neutral-300)" opacity="0.4"/>
+            <polygon points="560,210 590,150 620,210" fill="var(--nw-neutral-300)" opacity="0.4"/>
+
+            <!-- Rivers -->
+            <path d="M 395,100 Q 350,180 300,235 Q 265,275 215,290"
+                  fill="none" stroke="var(--nw-accent-soft)" stroke-width="2" opacity="0.6"/>
+            <path d="M 450,95 Q 500,200 540,305"
+                  fill="none" stroke="var(--nw-accent-soft)" stroke-width="2" opacity="0.6"/>
+            <path d="M 575,205 Q 600,300 640,405"
+                  fill="none" stroke="var(--nw-accent-soft)" stroke-width="2" opacity="0.6"/>
+
+            <!-- ===== Faction territory overlays ===== -->
+            <!-- 星海联盟 territory -->
+            <path d="M 105,160 L 180,120 L 280,130 L 380,150 L 410,230 L 390,330 L 320,410 L 210,425 L 140,370 L 100,290 L 105,160 Z"
+                  fill="var(--nw-primary)" opacity="0.08" stroke="var(--nw-primary)" stroke-width="1" opacity="0.3" stroke-dasharray="6,4"/>
+            <!-- 落日王庭 territory -->
+            <path d="M 440,200 L 540,190 L 640,220 L 705,290 L 690,380 L 600,425 L 490,415 L 445,335 L 440,200 Z"
+                  fill="var(--state-warning)" opacity="0.08" stroke="var(--state-warning)" stroke-width="1" opacity="0.3" stroke-dasharray="6,4"/>
+            <!-- 暗影教会 territory -->
+            <path d="M 560,100 L 630,85 L 695,115 L 705,175 L 650,200 L 590,180 L 560,100 Z"
+                  fill="var(--state-error)" opacity="0.08" stroke="var(--state-error)" stroke-width="1" opacity="0.3" stroke-dasharray="6,4"/>
+
+            <!-- ===== Location markers + labels ===== -->
+            <!-- 北境冰原 -->
+            <circle class="location-marker" cx="350" cy="80" r="6" fill="var(--nw-accent-soft)" stroke="white" stroke-width="2"/>
+            <text x="350" y="102" text-anchor="middle" font-size="12" fill="var(--nw-foreground)" font-weight="500">北境冰原</text>
+
+            <!-- 雾隐谷 -->
+            <circle class="location-marker" cx="380" cy="180" r="6" fill="var(--nw-accent-medium)" stroke="white" stroke-width="2"/>
+            <text x="380" y="166" text-anchor="middle" font-size="12" fill="var(--nw-foreground)" font-weight="500">雾隐谷</text>
+
+            <!-- 暗影森林 -->
+            <circle class="location-marker" cx="620" cy="150" r="6" fill="var(--state-success)" stroke="white" stroke-width="2"/>
+            <text x="620" y="136" text-anchor="middle" font-size="12" fill="var(--nw-foreground)" font-weight="500">暗影森林</text>
+
+            <!-- 星海港口 -->
+            <circle class="location-marker" cx="200" cy="280" r="8" fill="var(--nw-primary)" stroke="white" stroke-width="2"/>
+            <text x="200" y="305" text-anchor="middle" font-size="12" fill="var(--nw-foreground)" font-weight="500">星海港口</text>
+
+            <!-- 落日城 -->
+            <circle class="location-marker" cx="550" cy="320" r="7" fill="var(--state-warning)" stroke="white" stroke-width="2"/>
+            <text x="550" y="343" text-anchor="middle" font-size="12" fill="var(--nw-foreground)" font-weight="500">落日城</text>
+
+            <!-- 南方群岛 -->
+            <circle class="location-marker" cx="650" cy="420" r="6" fill="var(--nw-primary-300)" stroke="white" stroke-width="2"/>
+            <text x="650" y="406" text-anchor="middle" font-size="12" fill="var(--nw-foreground)" font-weight="500">南方群岛</text>
+        </svg>
+
+        <!-- Map toolbar -->
+        <div style="position:absolute;top:12px;left:12px;display:flex;gap:8px;">
+            <button class="btn-ghost" data-dom-id="btn-upload-map" style="font-size:12px;padding:5px 10px;"><i data-lucide="upload"></i>上传地图</button>
+            <button class="btn-ghost" style="font-size:12px;padding:5px 10px;"><i data-lucide="plus"></i></button>
+            <button class="btn-ghost" style="font-size:12px;padding:5px 10px;"><i data-lucide="minus"></i></button>
+            <button class="btn-ghost" style="font-size:12px;padding:5px 10px;">重置视图</button>
+        </div>
+
+        <!-- Map legend -->
+        <div style="position:absolute;bottom:12px;left:12px;background:var(--nw-background);border:1px solid var(--nw-border);border-radius:8px;padding:10px 12px;font-size:12px;">
+            <div style="font-weight:600;margin-bottom:6px;color:var(--nw-foreground);">图例</div>
+            <div style="display:flex;flex-direction:column;gap:4px;color:var(--nw-neutral-700);">
+                <div style="display:flex;align-items:center;gap:6px;">
+                    <span style="width:8px;height:8px;border-radius:50%;background:var(--nw-primary);flex-shrink:0;"></span>主要城市
+                </div>
+                <div style="display:flex;align-items:center;gap:6px;">
+                    <span style="width:8px;height:8px;border-radius:50%;background:var(--nw-accent-medium);flex-shrink:0;"></span>重要据点
+                </div>
+                <div style="display:flex;align-items:center;gap:6px;">
+                    <span style="width:8px;height:8px;border-radius:50%;background:var(--state-warning);flex-shrink:0;"></span>王庭领地
+                </div>
+                <div style="display:flex;align-items:center;gap:6px;">
+                    <span style="width:8px;height:8px;border-radius:50%;background:var(--state-success);flex-shrink:0;"></span>自然区域
+                </div>
+                <div style="display:flex;align-items:center;gap:6px;">
+                    <span style="width:14px;border-top:1px dashed var(--nw-neutral-500);flex-shrink:0;"></span>势力边界
+                </div>
+            </div>
+        </div>
+
+        <!-- Location detail popup -->
+        <div id="location-popup" style="position:absolute;top:12px;right:12px;width:220px;background:var(--nw-background);border:1px solid var(--nw-border);border-radius:8px;padding:14px;">
+            <div style="font-size:15px;font-weight:600;color:var(--nw-foreground);margin-bottom:6px;">星海港口</div>
+            <span class="badge badge-info" style="margin-bottom:10px;">主要城市</span>
+            <div style="font-size:13px;color:var(--nw-foreground);display:flex;align-items:center;gap:6px;margin-top:10px;margin-bottom:8px;">
+                <span style="width:8px;height:8px;border-radius:50%;background:var(--nw-primary);flex-shrink:0;"></span>
+                属于 星海联盟
+            </div>
+            <p style="font-size:13px;line-height:1.5;color:var(--nw-neutral-700);margin:0 0 10px 0;">大陆西海岸最大的贸易港口，林昭的故乡。常年雾气弥漫，传说海底沉睡着古老的力量。</p>
+            <div style="display:flex;flex-direction:column;gap:4px;font-size:12px;margin-bottom:10px;">
+                <div style="display:flex;justify-content:space-between;">
+                    <span style="color:var(--nw-neutral-500);">人口</span>
+                    <span style="color:var(--nw-foreground);font-weight:500;">约 12,000</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;">
+                    <span style="color:var(--nw-neutral-500);">主要势力</span>
+                    <span style="color:var(--nw-foreground);font-weight:500;">商会、港口守卫</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;">
+                    <span style="color:var(--nw-neutral-500);">特产</span>
+                    <span style="color:var(--nw-foreground);font-weight:500;">星纹珊瑚、深海珍珠</span>
+                </div>
+            </div>
+            <a style="font-size:12px;color:var(--nw-primary-600);cursor:pointer;" data-dom-id="btn-edit-location">编辑信息</a>
+        </div>
+    </div>
+
+    <!-- ===== Right Info Panel ===== -->
+    <div style="width:280px;flex-shrink:0;display:flex;flex-direction:column;gap:16px;">
+
+        <!-- Faction list card -->
+        <div class="card">
+            <div class="card-title">
+                <span>势力分布</span>
+                <span class="badge badge-neutral">3</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:12px;">
+                <div style="display:flex;flex-direction:column;gap:4px;">
+                    <div style="display:flex;align-items:center;gap:8px;">
+                        <span style="width:12px;height:12px;border-radius:50%;background:var(--nw-primary);flex-shrink:0;"></span>
+                        <span style="font-size:14px;font-weight:500;color:var(--nw-foreground);">星海联盟</span>
+                        <span class="badge badge-neutral" style="margin-left:auto;font-size:11px;">成员 8</span>
+                    </div>
+                    <p style="font-size:12px;line-height:1.4;color:var(--nw-neutral-600);margin:0;">由港口城市组成的商业联盟，崇尚自由与秩序。</p>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:4px;">
+                    <div style="display:flex;align-items:center;gap:8px;">
+                        <span style="width:12px;height:12px;border-radius:50%;background:var(--state-warning);flex-shrink:0;"></span>
+                        <span style="font-size:14px;font-weight:500;color:var(--nw-foreground);">落日王庭</span>
+                        <span class="badge badge-neutral" style="margin-left:auto;font-size:11px;">成员 12</span>
+                    </div>
+                    <p style="font-size:12px;line-height:1.4;color:var(--nw-neutral-600);margin:0;">大陆中部的古老王朝，日渐衰落却仍掌控大片领土。</p>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:4px;">
+                    <div style="display:flex;align-items:center;gap:8px;">
+                        <span style="width:12px;height:12px;border-radius:50%;background:var(--state-error);flex-shrink:0;"></span>
+                        <span style="font-size:14px;font-weight:500;color:var(--nw-foreground);">暗影教会</span>
+                        <span class="badge badge-neutral" style="margin-left:auto;font-size:11px;">成员 5</span>
+                    </div>
+                    <p style="font-size:12px;line-height:1.4;color:var(--nw-neutral-600);margin:0;">隐藏在暗处的神秘组织，觊觎星海的古老力量。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- World overview card -->
+        <div class="card">
+            <div class="card-title"><span>世界简介</span></div>
+            <p style="font-size:13px;line-height:1.6;color:var(--nw-neutral-700);margin:0;">星海大陆，一片被永恒雾气笼罩的古老土地。大陆西临星海，东接荒原，北至冰原，南抵群岛。千年前，一场被称为「大织」的神秘事件撕裂了大陆，留下的裂隙中涌出未知的力量。如今，三大势力在这片土地上角逐，而沉睡于星海深处的秘密，正等待着被唤醒……</p>
+            <div style="border-top:1px solid var(--nw-border);margin:12px 0;"></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px;">
+                <div>
+                    <div style="color:var(--nw-neutral-500);margin-bottom:2px;">纪年</div>
+                    <div style="color:var(--nw-foreground);font-weight:500;">星海历 1024 年</div>
+                </div>
+                <div>
+                    <div style="color:var(--nw-neutral-500);margin-bottom:2px;">大陆面积</div>
+                    <div style="color:var(--nw-foreground);font-weight:500;">约 80 万平方里</div>
+                </div>
+                <div>
+                    <div style="color:var(--nw-neutral-500);margin-bottom:2px;">已知城市</div>
+                    <div style="color:var(--nw-foreground);font-weight:500;">6</div>
+                </div>
+                <div>
+                    <div style="color:var(--nw-neutral-500);margin-bottom:2px;">势力数量</div>
+                    <div style="color:var(--nw-foreground);font-weight:500;">3</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Timeline card -->
+        <div class="card">
+            <div class="card-title"><span>世界大事记</span></div>
+            <div style="display:flex;flex-direction:column;gap:12px;">
+                <div style="border-left:2px solid var(--nw-border);padding-left:12px;">
+                    <div style="font-size:12px;color:var(--nw-neutral-500);margin-bottom:2px;">星海历 0 年</div>
+                    <div style="font-size:13px;color:var(--nw-foreground);">「大织」事件爆发，大陆分裂</div>
+                </div>
+                <div style="border-left:2px solid var(--nw-border);padding-left:12px;">
+                    <div style="font-size:12px;color:var(--nw-neutral-500);margin-bottom:2px;">星海历 312 年</div>
+                    <div style="font-size:13px;color:var(--nw-foreground);">星海联盟成立，港口城市联合</div>
+                </div>
+                <div style="border-left:2px solid var(--nw-border);padding-left:12px;">
+                    <div style="font-size:12px;color:var(--nw-neutral-500);margin-bottom:2px;">星海历 501 年</div>
+                    <div style="font-size:13px;color:var(--nw-foreground);">落日王庭统一中部平原</div>
+                </div>
+                <div style="border-left:2px solid var(--nw-border);padding-left:12px;">
+                    <div style="font-size:12px;color:var(--nw-neutral-500);margin-bottom:2px;">星海历 780 年</div>
+                    <div style="font-size:13px;color:var(--nw-foreground);">暗影教会首次现身</div>
+                </div>
+                <div style="border-left:2px solid var(--nw-border);padding-left:12px;">
+                    <div style="font-size:12px;color:var(--nw-neutral-500);margin-bottom:2px;">星海历 1024 年</div>
+                    <div style="font-size:13px;color:var(--nw-foreground);">故事开始，林昭发现神秘信物</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+                </main>
+
+                <!-- ===== Right AI Panel ===== -->
+                <aside class="ai-panel">
+                    <div class="ai-panel-header">
+                        <i data-lucide="sparkles"></i>
+                        <span>AI 助手</span>
+                        <span class="badge badge-info" style="margin-left:auto;font-size:11px;">Agent 就绪</span>
+                    </div>
+                    <div class="ai-panel-body">
+                        <div class="ai-suggestion">
+                            <div class="ai-suggestion-title"><i data-lucide="lightbulb" style="width:14px;height:14px;"></i>世界观建议</div>
+                            <p style="margin:0;">星海大陆的「大织」事件可以作为核心谜团贯穿全文。建议在第25章左右揭示部分真相，与「古老的预言」伏笔呼应。</p>
+                        </div>
+                        <div class="ai-suggestion">
+                            <div class="ai-suggestion-title"><i data-lucide="lightbulb" style="width:14px;height:14px;"></i>势力分析</div>
+                            <p style="margin:0;">暗影教会目前仅有5名已知成员，建议补充其组织结构和核心人物，增强反派的可信度。</p>
+                        </div>
+                        <div class="ai-suggestion">
+                            <div class="ai-suggestion-title"><i data-lucide="lightbulb" style="width:14px;height:14px;"></i>地理建议</div>
+                            <p style="margin:0;">南方群岛尚未在正文中出现，考虑在第26-28章安排角色前往，拓展故事版图。</p>
+                        </div>
+                        <button class="btn-primary" data-dom-id="ai-worldview-report-btn" style="width:100%;justify-content:center;"><i data-lucide="file-text"></i>生成世界观报告</button>
+                    </div>
+                    <div class="ai-chat-input-wrap">
+                        <div class="ai-chat-input">
+                            <input type="text" placeholder="向 AI 提问或输入指令...">
+                            <button data-dom-id="ai-send-btn"><i data-lucide="send"></i></button>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+    <script>lucide.createIcons();</script>
+    <script>
+// Sidebar collapse persistence
+(function(){
+  var shell = document.querySelector('.app-shell');
+  var btn = document.querySelector('[data-dom-id="sidebar-collapse-btn"]');
+  var key = 'xiaozhi_sidebar_collapsed';
+  function apply(state) {
+    if (!shell) return;
+    if (state) shell.classList.add('sidebar-collapsed');
+    else shell.classList.remove('sidebar-collapsed');
+    if (btn) btn.setAttribute('aria-expanded', state ? 'false' : 'true');
+  }
+  var saved = localStorage.getItem(key);
+  apply(saved === '1');
+  if (btn) {
+    btn.addEventListener('click', function() {
+      var willCollapse = !shell.classList.contains('sidebar-collapsed');
+      apply(willCollapse);
+      localStorage.setItem(key, willCollapse ? '1' : '0');
+    });
+  }
+})();
+</script>
+    <script>
+// Location marker click interaction
+document.querySelectorAll('.location-marker').forEach(function(marker) {
+    marker.style.cursor = 'pointer';
+    marker.addEventListener('click', function() {
+        document.querySelectorAll('.location-marker').forEach(function(m) {
+            m.setAttribute('r', m.dataset.originalR || m.getAttribute('r'));
+        });
+        var r = parseFloat(this.getAttribute('r'));
+        this.dataset.originalR = r;
+        this.setAttribute('r', r + 4);
+    });
+});
+// Map pan & zoom via viewBox
+var mapCard = document.querySelector('.card[style*="height:calc(100vh - 200px)"]');
+var mapSvg = mapCard ? mapCard.querySelector('svg') : null;
+if (mapSvg) {
+    var viewBox = { x: 0, y: 0, w: 800, h: 500 };
+    var isDragging = false;
+    var start = { x: 0, y: 0 };
+    mapSvg.addEventListener('mousedown', function(e) {
+        isDragging = true;
+        start.x = e.clientX;
+        start.y = e.clientY;
+        mapSvg.style.cursor = 'grabbing';
+    });
+    window.addEventListener('mousemove', function(e) {
+        if (!isDragging) return;
+        var dx = e.clientX - start.x;
+        var dy = e.clientY - start.y;
+        start.x = e.clientX;
+        start.y = e.clientY;
+        var scaleX = viewBox.w / mapSvg.clientWidth;
+        var scaleY = viewBox.h / mapSvg.clientHeight;
+        viewBox.x -= dx * scaleX;
+        viewBox.y -= dy * scaleY;
+        mapSvg.setAttribute('viewBox', viewBox.x + ' ' + viewBox.y + ' ' + viewBox.w + ' ' + viewBox.h);
+    });
+    window.addEventListener('mouseup', function() {
+        isDragging = false;
+        mapSvg.style.cursor = 'grab';
+    });
+    mapSvg.style.cursor = 'grab';
+    // Zoom buttons
+    var zoomInBtn = mapCard.querySelector('button:nth-child(2)');
+    var zoomOutBtn = mapCard.querySelector('button:nth-child(3)');
+    var resetBtn = mapCard.querySelector('button:nth-child(4)');
+    function applyZoom(factor) {
+        var cx = viewBox.x + viewBox.w / 2;
+        var cy = viewBox.y + viewBox.h / 2;
+        viewBox.w *= factor;
+        viewBox.h *= factor;
+        viewBox.x = cx - viewBox.w / 2;
+        viewBox.y = cy - viewBox.h / 2;
+        mapSvg.setAttribute('viewBox', viewBox.x + ' ' + viewBox.y + ' ' + viewBox.w + ' ' + viewBox.h);
+    }
+    if (zoomInBtn) zoomInBtn.addEventListener('click', function() { applyZoom(0.8); });
+    if (zoomOutBtn) zoomOutBtn.addEventListener('click', function() { applyZoom(1.25); });
+    if (resetBtn) resetBtn.addEventListener('click', function() {
+        viewBox = { x: 0, y: 0, w: 800, h: 500 };
+        mapSvg.setAttribute('viewBox', '0 0 800 500');
+    });
+}
+// Upload button feedback
+var uploadBtn = document.querySelector('[data-dom-id="btn-upload-map"]');
+if (uploadBtn) {
+    uploadBtn.addEventListener('click', function() {
+        var original = this.innerHTML;
+        this.innerHTML = '<i data-lucide="loader-2" style="animation:spin 1s linear infinite;"></i>上传中...';
+        this.disabled = true;
+        var self = this;
+        setTimeout(function() {
+            self.innerHTML = original;
+            self.disabled = false;
+            lucide.createIcons();
+        }, 1500);
+        lucide.createIcons();
+    });
+}
+</script>
+<style>@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}</style>
+<script src="assets/xiaozhi-app.js"></script>
+</body>
+</html>

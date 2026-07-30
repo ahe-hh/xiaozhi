@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="zh" class="light" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>作品中心 — 小织</title>
+    <style id="theme-vars">
+/* ============================================================
+   小织 — Novel Workstation Brand CSS
+   Style: Soft Blue-Gray (柔蓝灰调)
+   Palette source: user-provided color card
+   Prefix: nw
+   ============================================================ */
+
+/* ---- Root Tokens (Light Mode / Default) ---- */
+:root {
+  /* Primary hue — soft blue-gray (from user palette) */
+  --nw-primary-50:  #F0F4FA;
+  --nw-primary-100: #E8E8F0;
+  --nw-primary-200: #D8E0F0;
+  --nw-primary-300: #B0C8E8;
+  --nw-primary-400: #80A8E0;
+  --nw-primary-500: #6B8EC4;
+  --nw-primary-600: #4A6FA0;
+  --nw-primary-700: #3A5680;
+  --nw-primary-800: #2A4060;
+  --nw-primary-900: #1A2A40;
+
+  /* Neutral scale — warm-tinted grays */
+  --nw-neutral-0:   #FFFFFF;
+  --nw-neutral-50:  #F8F9FB;
+  --nw-neutral-100: #F0F0F0;
+  --nw-neutral-200: #E4E6EC;
+  --nw-neutral-300: #CDD2DC;
+  --nw-neutral-400: #9BA1AE;
+  --nw-neutral-500: #6B7280;
+  --nw-neutral-600: #4A5260;
+  --nw-neutral-700: #363D4A;
+  --nw-neutral-800: #1E242E;
+  --nw-neutral-900: #0F1318;
+
+  /* State colors */
+  --state-success: #5BAA75;
+  --state-warning: #D49A4E;
+  --state-error:   #C96B6B;
+  --state-info:    #80A8E0;
+
+  /* Radius scale (restrained) */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+
+  /* ---- Semantic Aliases (Light) ---- */
+  --nw-background: #FFFFFF;
+  --nw-foreground: #1E242E;
+  --nw-card: #F8F9FB;
+  --nw-card-foreground: #1E242E;
+  --nw-popover: #FFFFFF;
+  --nw-popover-foreground: #1E242E;
+  --nw-primary: #4A6FA0;
+  --nw-primary-foreground: #FFFFFF;
+  --nw-muted: #F0F0F0;
+  --nw-muted-foreground: #6B7280;
+  --nw-border: #E4E6EC;
+  --nw-input: #E4E6EC;
+  --nw-ring: #80A8E0;
+  --nw-radius-small: 4px;
+  --nw-radius-medium: 8px;
+  --nw-radius-large: 12px;
+  --nw-accent-soft: #B0C8E8;
+  --nw-accent-medium: #80A8E0;
+  --nw-accent-pale: #D8E0F0;
+  --nw-accent-lavender: #E8E8F0;
+
+  /* Typography */
+  --nw-font-sans: "Inter", system-ui, -apple-system, "Segoe UI", "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  --nw-font-mono: "JetBrains Mono", "Fira Code", "Cascadia Code", "SF Mono", Consolas, monospace;
+}
+
+/* ---- Dark Mode ---- */
+html.dark {
+  --nw-background: #0F1318;
+  --nw-foreground: #E4E6EC;
+  --nw-card: #1E242E;
+  --nw-card-foreground: #E4E6EC;
+  --nw-popover: #1E242E;
+  --nw-popover-foreground: #E4E6EC;
+  --nw-primary: #80A8E0;
+  --nw-primary-foreground: #0F1318;
+  --nw-muted: #2A2E38;
+  --nw-muted-foreground: #9BA1AE;
+  --nw-border: #2A2E38;
+  --nw-input: #2A2E38;
+  --nw-ring: #80A8E0;
+  --nw-accent-soft: #3A5680;
+  --nw-accent-medium: #4A6FA0;
+  --nw-accent-pale: #2A4060;
+  --nw-accent-lavender: #363D4A;
+}
+
+/* ---- Typography Classes ---- */
+.font-sans { font-family: var(--nw-font-sans); }
+.font-mono { font-family: var(--nw-font-mono); }
+
+.text-xs   { font-size: 12px; line-height: 16px; }
+.text-sm   { font-size: 14px; line-height: 20px; }
+.text-base { font-size: 16px; line-height: 24px; }
+.text-lg   { font-size: 18px; line-height: 28px; }
+.text-xl   { font-size: 20px; line-height: 28px; }
+.text-2xl  { font-size: 24px; line-height: 32px; }
+.text-3xl  { font-size: 30px; line-height: 36px; }
+
+.font-normal  { font-weight: 400; }
+.font-medium  { font-weight: 500; }
+.font-semibold{ font-weight: 600; }
+.font-bold    { font-weight: 700; }
+
+.tracking-tight  { letter-spacing: -0.025em; }
+.tracking-normal { letter-spacing: 0; }
+
+/* ---- Base Reset ---- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-family: var(--nw-font-sans); -webkit-font-smoothing: antialiased; }
+body { background: var(--nw-background); color: var(--nw-foreground); }
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-background: var(--nw-background);
+    --color-foreground: var(--nw-foreground);
+    --color-card: var(--nw-card);
+    --color-card-foreground: var(--nw-card-foreground);
+    --color-popover: var(--nw-popover);
+    --color-popover-foreground: var(--nw-popover-foreground);
+    --color-primary: var(--nw-primary);
+    --color-primary-foreground: var(--nw-primary-foreground);
+    --color-muted: var(--nw-muted);
+    --color-muted-foreground: var(--nw-muted-foreground);
+    --color-border: var(--nw-border);
+    --color-input: var(--nw-input);
+    --color-ring: var(--nw-ring);
+    --radius-sm: var(--nw-radius-small);
+    --radius-md: var(--nw-radius-medium);
+    --radius-lg: var(--nw-radius-large);
+  }
+  @layer base {
+    body { background: var(--nw-background); color: var(--nw-foreground); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style id="semantic-token-fallback">
+      .bg-background { background-color: var(--nw-background); }
+      .text-background { color: var(--nw-background); }
+      .border-background { border-color: var(--nw-background); }
+      .ring-background { --tw-ring-color: var(--nw-background); }
+      .bg-foreground { background-color: var(--nw-foreground); }
+      .text-foreground { color: var(--nw-foreground); }
+      .border-foreground { border-color: var(--nw-foreground); }
+      .ring-foreground { --tw-ring-color: var(--nw-foreground); }
+      .bg-card { background-color: var(--nw-card); }
+      .text-card { color: var(--nw-card); }
+      .border-card { border-color: var(--nw-card); }
+      .ring-card { --tw-ring-color: var(--nw-card); }
+      .bg-card-foreground { background-color: var(--nw-card-foreground); }
+      .text-card-foreground { color: var(--nw-card-foreground); }
+      .border-card-foreground { border-color: var(--nw-card-foreground); }
+      .ring-card-foreground { --tw-ring-color: var(--nw-card-foreground); }
+      .bg-popover { background-color: var(--nw-popover); }
+      .text-popover { color: var(--nw-popover); }
+      .border-popover { border-color: var(--nw-popover); }
+      .ring-popover { --tw-ring-color: var(--nw-popover); }
+      .bg-popover-foreground { background-color: var(--nw-popover-foreground); }
+      .text-popover-foreground { color: var(--nw-popover-foreground); }
+      .border-popover-foreground { border-color: var(--nw-popover-foreground); }
+      .ring-popover-foreground { --tw-ring-color: var(--nw-popover-foreground); }
+      .bg-primary { background-color: var(--nw-primary); }
+      .text-primary { color: var(--nw-primary); }
+      .border-primary { border-color: var(--nw-primary); }
+      .ring-primary { --tw-ring-color: var(--nw-primary); }
+      .bg-primary-foreground { background-color: var(--nw-primary-foreground); }
+      .text-primary-foreground { color: var(--nw-primary-foreground); }
+      .border-primary-foreground { border-color: var(--nw-primary-foreground); }
+      .ring-primary-foreground { --tw-ring-color: var(--nw-primary-foreground); }
+      .bg-muted { background-color: var(--nw-muted); }
+      .text-muted { color: var(--nw-muted); }
+      .border-muted { border-color: var(--nw-muted); }
+      .ring-muted { --tw-ring-color: var(--nw-muted); }
+      .bg-muted-foreground { background-color: var(--nw-muted-foreground); }
+      .text-muted-foreground { color: var(--nw-muted-foreground); }
+      .border-muted-foreground { border-color: var(--nw-muted-foreground); }
+      .ring-muted-foreground { --tw-ring-color: var(--nw-muted-foreground); }
+      .bg-border { background-color: var(--nw-border); }
+      .text-border { color: var(--nw-border); }
+      .border-border { border-color: var(--nw-border); }
+      .ring-border { --tw-ring-color: var(--nw-border); }
+      .bg-input { background-color: var(--nw-input); }
+      .text-input { color: var(--nw-input); }
+      .border-input { border-color: var(--nw-input); }
+      .ring-input { --tw-ring-color: var(--nw-input); }
+      .bg-ring { background-color: var(--nw-ring); }
+      .text-ring { color: var(--nw-ring); }
+      .border-ring { border-color: var(--nw-ring); }
+      .ring-ring { --tw-ring-color: var(--nw-ring); }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+    </style>
+    <style id="critical-layout">
+      /* ===== App Shell — Layout-Safe Static CSS ===== */
+      .app-shell {
+        display: flex;
+        min-height: 100vh;
+        width: 100%;
+        background: var(--nw-background);
+      }
+      .sidebar {
+        width: 232px;
+        flex-shrink: 0;
+        border-right: 1px solid var(--nw-border);
+        background: var(--nw-neutral-50);
+        display: flex;
+        flex-direction: column;
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        overflow-y: auto;
+        z-index: 20;
+      }
+      .sidebar-logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 20px 20px 16px;
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--nw-foreground);
+        letter-spacing: -0.02em;
+        justify-content: space-between;
+      }
+      .sidebar-logo svg {
+        width: 24px;
+        height: 24px;
+        flex-shrink: 0;
+      }
+      .sidebar-logo-left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        overflow: hidden;
+      }
+      .sidebar-collapse-btn {
+        width: 28px;
+        height: 28px;
+        border: none;
+        border-radius: 6px;
+        background: transparent;
+        color: var(--nw-neutral-400);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        transition: background 140ms ease, color 140ms ease;
+      }
+      .sidebar-collapse-btn:hover {
+        background: var(--nw-neutral-100);
+        color: var(--nw-neutral-600);
+      }
+      .sidebar-collapse-btn svg { width: 16px; height: 16px; }
+      /* Collapsed state */
+      .app-shell.sidebar-collapsed .sidebar {
+        width: 56px;
+      }
+      .app-shell.sidebar-collapsed .sidebar-logo {
+        padding: 20px 16px 16px;
+        justify-content: center;
+      }
+      .app-shell.sidebar-collapsed .sidebar-logo-left span { display: none; }
+      .app-shell.sidebar-collapsed .sidebar-nav {
+        padding: 8px 10px;
+        align-items: center;
+      }
+      .app-shell.sidebar-collapsed .nav-item {
+        justify-content: center;
+        padding: 10px;
+        width: 36px;
+        height: 36px;
+      }
+      .app-shell.sidebar-collapsed .nav-item span { display: none; }
+      .app-shell.sidebar-collapsed .sidebar-footer {
+        display: none;
+      }
+      .app-shell.sidebar-collapsed .sidebar-collapse-btn {
+        transform: rotate(180deg);
+      }
+      .sidebar-nav {
+        flex: 1;
+        padding: 8px 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .nav-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 9px 12px;
+        border-radius: 8px;
+        font-size: 14px;
+        color: var(--nw-neutral-600);
+        text-decoration: none;
+        transition: background 140ms ease, color 140ms ease;
+        cursor: pointer;
+      }
+      .nav-item svg { width: 18px; height: 18px; flex-shrink: 0; }
+      .nav-item:hover { background: var(--nw-neutral-100); color: var(--nw-foreground); }
+      .nav-item.active {
+        background: var(--nw-primary-100);
+        color: var(--nw-primary-600);
+        font-weight: 500;
+      }
+      .sidebar-footer {
+        padding: 12px 16px;
+        border-top: 1px solid var(--nw-border);
+        font-size: 12px;
+        color: var(--nw-neutral-400);
+      }
+      .main-area {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+      }
+      .top-header {
+        height: 56px;
+        flex-shrink: 0;
+        border-bottom: 1px solid var(--nw-border);
+        background: var(--nw-background);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 24px;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+      .header-left { display: flex; align-items: center; gap: 12px; }
+      .header-title { font-size: 16px; font-weight: 600; color: var(--nw-foreground); letter-spacing: -0.01em; }
+      .header-right { display: flex; align-items: center; gap: 16px; }
+      .header-stat {
+        font-size: 13px;
+        color: var(--nw-muted-foreground);
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .header-stat strong { color: var(--nw-foreground); font-weight: 600; }
+      .content-wrapper {
+        flex: 1;
+        display: flex;
+        min-height: 0;
+      }
+      .main-content {
+        flex: 1;
+        padding: 24px;
+        overflow-y: auto;
+        min-width: 0;
+      }
+      .ai-panel {
+        width: 300px;
+        flex-shrink: 0;
+        border-left: 1px solid var(--nw-border);
+        background: var(--nw-neutral-50);
+        display: flex;
+        flex-direction: column;
+        height: calc(100vh - 56px);
+        position: sticky;
+        top: 56px;
+      }
+      .ai-panel-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 16px 20px;
+        border-bottom: 1px solid var(--nw-border);
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--nw-foreground);
+      }
+      .ai-panel-header svg { width: 18px; height: 18px; color: var(--nw-accent-medium); }
+      .ai-panel-body {
+        flex: 1;
+        overflow-y: auto;
+        padding: 16px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .ai-suggestion {
+        background: var(--nw-background);
+        border: 1px solid var(--nw-border);
+        border-radius: 8px;
+        padding: 12px 14px;
+        font-size: 13px;
+        line-height: 1.5;
+        color: var(--nw-neutral-700);
+      }
+      .ai-suggestion-title {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--nw-primary-600);
+        margin-bottom: 6px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .ai-chat-input-wrap {
+        padding: 12px 16px;
+        border-top: 1px solid var(--nw-border);
+      }
+      .ai-chat-input {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+      .ai-chat-input input {
+        flex: 1;
+        border: 1px solid var(--nw-border);
+        border-radius: 8px;
+        padding: 8px 12px;
+        font-size: 13px;
+        background: var(--nw-background);
+        color: var(--nw-foreground);
+        outline: none;
+      }
+      .ai-chat-input input:focus { border-color: var(--nw-accent-medium); }
+      .ai-chat-input button {
+        width: 36px;
+        height: 36px;
+        border: none;
+        border-radius: 8px;
+        background: var(--nw-primary);
+        color: var(--nw-primary-foreground);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .ai-chat-input button:hover { background: var(--nw-primary-700); }
+      .ai-chat-input button svg { width: 16px; height: 16px; }
+      .btn-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 7px 16px;
+        border: none;
+        border-radius: 8px;
+        background: var(--nw-primary);
+        color: var(--nw-primary-foreground);
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 140ms ease;
+      }
+      .btn-primary:hover { background: var(--nw-primary-700); }
+      .btn-primary svg { width: 15px; height: 15px; }
+      .btn-ghost {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 7px 14px;
+        border: 1px solid var(--nw-border);
+        border-radius: 8px;
+        background: var(--nw-background);
+        color: var(--nw-neutral-700);
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 140ms ease;
+      }
+      .btn-ghost:hover { background: var(--nw-neutral-100); }
+      .btn-ghost svg { width: 15px; height: 15px; }
+      .btn-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        border: none;
+        border-radius: 6px;
+        background: transparent;
+        color: var(--nw-neutral-500);
+        cursor: pointer;
+      }
+      .btn-icon:hover { background: var(--nw-neutral-100); color: var(--nw-foreground); }
+      .btn-icon svg { width: 15px; height: 15px; }
+      .card {
+        background: var(--nw-background);
+        border: 1px solid var(--nw-border);
+        border-radius: 12px;
+        padding: 20px;
+      }
+      .card-title {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--nw-foreground);
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 2px 8px;
+        border-radius: 9999px;
+        font-size: 12px;
+        font-weight: 500;
+      }
+      .badge-success { background: rgba(91,170,117,0.12); color: #4A8A5E; }
+      .badge-warning { background: rgba(212,154,78,0.12); color: #B07A38; }
+      .badge-error { background: rgba(201,107,107,0.12); color: #A05050; }
+      .badge-info { background: rgba(128,168,224,0.12); color: #4A6FA0; }
+      .badge-neutral { background: var(--nw-neutral-100); color: var(--nw-neutral-600); }
+      /* Lucide icon sizing */
+      [data-lucide] { width: 18px; height: 18px; }
+      /* 小织 fish logo */
+      .xiaozhi-logo { width: 24px; height: 24px; flex-shrink: 0; }
+      /* Works page specific */
+      .works-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 20px;
+      }
+      .work-card {
+        background: var(--nw-background);
+        border: 1px solid var(--nw-border);
+        border-radius: 12px;
+        overflow: hidden;
+        cursor: pointer;
+        transition: border-color 140ms ease, box-shadow 140ms ease, transform 140ms ease;
+        position: relative;
+      }
+      .work-card:hover { border-color: var(--nw-accent-medium); box-shadow: 0 4px 12px rgba(26,36,64,0.06); }
+      .work-card.active {
+        border-color: var(--nw-primary);
+        box-shadow: 0 0 0 2px var(--nw-primary-100);
+      }
+      .work-card-actions {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        display: flex;
+        gap: 4px;
+        opacity: 0;
+        transition: opacity 140ms ease;
+      }
+      .work-card:hover .work-card-actions { opacity: 1; }
+      .work-cover {
+        width: 100%;
+        aspect-ratio: 3/4;
+        object-fit: cover;
+        background: var(--nw-neutral-100);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--nw-neutral-400);
+      }
+      .work-cover img { width: 100%; height: 100%; object-fit: cover; }
+      .work-info { padding: 14px; }
+      .work-title {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--nw-foreground);
+        margin-bottom: 6px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .work-desc {
+        font-size: 12px;
+        color: var(--nw-muted-foreground);
+        line-height: 1.5;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .work-current-badge {
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        background: var(--nw-primary);
+        color: var(--nw-primary-foreground);
+        font-size: 11px;
+        font-weight: 500;
+        padding: 2px 8px;
+        border-radius: 9999px;
+      }
+      .add-work-card {
+        border: 1px dashed var(--nw-neutral-300);
+        background: var(--nw-neutral-50);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        aspect-ratio: 3/4;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: border-color 140ms ease, background 140ms ease;
+        color: var(--nw-neutral-500);
+      }
+      .add-work-card:hover { border-color: var(--nw-accent-medium); background: var(--nw-primary-50); color: var(--nw-primary); }
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(15,19,24,0.45);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 100;
+      }
+      .modal-overlay.open { display: flex; }
+      .modal {
+        background: var(--nw-background);
+        border-radius: 12px;
+        width: 420px;
+        max-width: calc(100vw - 40px);
+        box-shadow: 0 16px 48px rgba(15,19,24,0.18);
+        overflow: hidden;
+      }
+      .modal-header {
+        padding: 16px 20px;
+        border-bottom: 1px solid var(--nw-border);
+        font-size: 15px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .modal-body { padding: 20px; display: flex; flex-direction: column; gap: 16px; }
+      .form-field { display: flex; flex-direction: column; gap: 6px; }
+      .form-field label { font-size: 13px; font-weight: 500; color: var(--nw-foreground); }
+      .form-field input,
+      .form-field textarea {
+        border: 1px solid var(--nw-border);
+        border-radius: 8px;
+        padding: 9px 12px;
+        font-size: 14px;
+        background: var(--nw-background);
+        color: var(--nw-foreground);
+        outline: none;
+        font-family: inherit;
+      }
+      .form-field input:focus,
+      .form-field textarea:focus { border-color: var(--nw-accent-medium); }
+      .form-field textarea { resize: vertical; min-height: 80px; }
+      .cover-upload {
+        border: 1px dashed var(--nw-neutral-300);
+        border-radius: 8px;
+        aspect-ratio: 3/4;
+        max-height: 180px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        overflow: hidden;
+        background: var(--nw-neutral-50);
+        color: var(--nw-neutral-500);
+        position: relative;
+      }
+      .cover-upload:hover { border-color: var(--nw-accent-medium); }
+      .cover-upload img { width: 100%; height: 100%; object-fit: cover; }
+      .cover-upload input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+      .modal-footer {
+        padding: 12px 20px 16px;
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+      }
+      .empty-state {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 60px 20px;
+        color: var(--nw-muted-foreground);
+        text-align: center;
+      }
+      .empty-state svg { width: 48px; height: 48px; margin-bottom: 16px; color: var(--nw-neutral-300); }
+    </style>
+    <style>
+      /* Mobile menu button */
+      .mobile-menu-btn {
+        display: none;
+        width: 36px;
+        height: 36px;
+        border: none;
+        border-radius: 8px;
+        background: transparent;
+        color: var(--nw-neutral-600);
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+      }
+      .mobile-menu-btn svg { width: 20px; height: 20px; }
+
+      /* Extra responsive enhancements */
+      @media (max-width: 900px) {
+        .ai-panel { display: none; }
+        .mobile-menu-btn { display: inline-flex; }
+        .sidebar {
+          position: fixed;
+          left: 0;
+          top: 0;
+          transform: translateX(-100%);
+          transition: transform 260ms ease;
+          box-shadow: 4px 0 24px rgba(15,19,24,0.12);
+        }
+        .sidebar.open { transform: translateX(0); }
+        .sidebar-overlay {
+          position: fixed;
+          inset: 0;
+          background: rgba(15,19,24,0.35);
+          z-index: 19;
+          display: none;
+        }
+        .sidebar-overlay.open { display: block; }
+        .main-content { padding: 16px; }
+        .top-header { padding: 0 16px; }
+        .header-stat { display: none; }
+        .header-stat:first-child { display: inline-flex; }
+        .chapter-sidebar, .notes-panel { display: none; }
+        .writing-workspace { flex-direction: column; height: auto; }
+        .editor-area { padding: 16px; }
+        .filter-btn span { display: none; }
+        .mini-card { width: 120px; }
+      }
+      @media (max-width: 640px) {
+        .top-header { height: 52px; }
+        .header-title { font-size: 15px; }
+        .main-content { padding: 12px; }
+        .card { padding: 14px; }
+        .writing-workspace { border: none; border-radius: 0; }
+        .editor-toolbar { flex-wrap: wrap; }
+        .chapter-title-input { font-size: 18px; width: 100%; }
+        .grid.grid-cols-4 { grid-template-columns: repeat(2, 1fr); }
+        .grid.grid-cols-3 { grid-template-columns: 1fr; }
+        .grid.grid-cols-3 > [style*="grid-column: span 2"] { grid-column: span 1 !important; }
+        .foreshadow-table { font-size: 12px; }
+        .foreshadow-table th, .foreshadow-table td { padding: 8px 10px; }
+        .works-grid { grid-template-columns: repeat(2, 1fr); }
+        .btn-ghost span, .btn-primary span { display: none; }
+        .btn-ghost, .btn-primary { padding: 7px 10px; }
+      }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased">
+    <div class="app-shell">
+    <div class="sidebar-overlay"></div>
+
+        <!-- ===== Left Sidebar ===== -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <div class="sidebar-logo-left">
+                    <svg class="xiaozhi-logo" viewBox="0 0 28 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M9 12 C9 7.5 13 5.5 17.5 6 C21.5 6.5 23.5 8.5 24.5 12 C23.5 15.5 21.5 17.5 17.5 18 C13 18.5 9 16.5 9 12 Z" fill="var(--nw-accent-medium)"/>
+                      <path d="M9 12 L3.5 6.5 L4 17.5 Z" fill="var(--nw-accent-soft)"/>
+                      <path d="M13 8 L17 16" stroke="var(--nw-background)" stroke-width="0.9" opacity="0.5" stroke-linecap="round"/>
+                      <path d="M16 7.5 L19.5 16.5" stroke="var(--nw-background)" stroke-width="0.9" opacity="0.5" stroke-linecap="round"/>
+                      <circle cx="21" cy="10" r="1.3" fill="var(--nw-background)"/>
+                    </svg>
+                    <span>小织</span>
+                </div>
+                <button class="sidebar-collapse-btn" data-dom-id="sidebar-collapse-btn" aria-label="收起侧边栏" title="收起/展开">
+                    <i data-lucide="panel-left-close"></i>
+                </button>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="index.html" class="nav-item " data-dom-id="nav-home" title="主页">
+                    <i data-lucide="layout-dashboard"></i><span>主页</span>
+                </a>
+                <a href="works.html" class="nav-item active" data-dom-id="nav-works" title="作品中心">
+                    <i data-lucide="book-open"></i><span>作品中心</span>
+                </a>
+                <a href="writing.html" class="nav-item " data-dom-id="nav-writing" title="写作页">
+                    <i data-lucide="pen-line"></i><span>写作页</span>
+                </a>
+                <a href="relationships.html" class="nav-item " data-dom-id="nav-relationships" title="关系表">
+                    <i data-lucide="users"></i><span>关系表</span>
+                </a>
+                <a href="plot.html" class="nav-item " data-dom-id="nav-plot" title="主线伏笔">
+                    <i data-lucide="git-branch"></i><span>主线伏笔</span>
+                </a>
+                <a href="worldview.html" class="nav-item" data-dom-id="nav-worldview" title="世界观">
+                    <i data-lucide="map"></i><span>世界观</span>
+                </a>
+                <a href="cards.html" class="nav-item " data-dom-id="nav-cards" title="抽卡表">
+                    <i data-lucide="layers"></i><span>抽卡表</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+                    <i data-lucide="circle-dot" style="width:8px;height:8px;color:var(--state-success);"></i>
+                    <span>自动保存已开启</span>
+                </div>
+                <span>v1.0 · 个人版</span>
+            </div>
+        </aside>
+
+        <!-- ===== Main Area ===== -->
+        <div class="main-area">
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="mobile-menu-btn" aria-label="打开菜单"><i data-lucide="menu"></i></button>
+                    
+                    <h1 class="header-title">作品中心</h1>
+                </div>
+                <div class="header-right">
+                    <span class="header-stat"><i data-lucide="calendar" style="width:14px;height:14px;"></i> 2026年7月30日</span>
+                    <span class="header-stat">当前作品 <strong id="current-work-name">未选择</strong></span>
+                    <button class="btn-primary" id="btn-add-work"><i data-lucide="plus"></i>新建作品</button>
+                </div>
+            </header>
+
+            <div class="content-wrapper">
+                <main class="main-content">
+                    <div class="card" style="margin-bottom:24px; background:linear-gradient(135deg, var(--nw-primary-50), var(--nw-background)); border-color:var(--nw-primary-100);">
+                        <div style="display:flex; align-items:center; justify-content:space-between; gap:16px;">
+                            <div>
+                                <div style="font-size:18px; font-weight:600; color:var(--nw-foreground); letter-spacing:-0.01em;">管理你的创作</div>
+                                <div style="font-size:13px; color:var(--nw-muted-foreground); margin-top:6px;">选择一个作品进入工作台，或点击卡片编辑信息。当前作品会同步到主页与写作页。</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="works-container" class="works-grid"></div>
+                </main>
+
+                <!-- ===== Right AI Panel ===== -->
+                <aside class="ai-panel">
+                    <div class="ai-panel-header">
+                        <i data-lucide="sparkles"></i>
+                        <span>AI 助手</span>
+                        <span class="badge badge-info" style="margin-left:auto;font-size:11px;">Agent 就绪</span>
+                    </div>
+                    <div class="ai-panel-body">
+                        <div class="ai-suggestion">
+                            <div class="ai-suggestion-title"><i data-lucide="book-open" style="width:13px;height:13px;"></i>作品管理</div>
+                            点击任意作品卡片即可将其设为当前创作作品，工作台会自动同步书名与封面。
+                        </div>
+                        <div class="ai-suggestion">
+                            <div class="ai-suggestion-title"><i data-lucide="pen-tool" style="width:13px;height:13px;"></i>编辑提示</div>
+                            鼠标悬停在作品卡片上，点击右上角铅笔图标可修改书名、封面与简介。
+                        </div>
+                    </div>
+                    <div class="ai-chat-input-wrap">
+                        <div class="ai-chat-input">
+                            <input type="text" placeholder="向 AI 提问或输入指令...">
+                            <button data-dom-id="ai-send-btn"><i data-lucide="send"></i></button>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <!-- Work Modal -->
+    <div class="modal-overlay" id="work-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <span id="modal-title">新建作品</span>
+                <button class="btn-icon" id="modal-close"><i data-lucide="x"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-field">
+                    <label>封面</label>
+                    <div class="cover-upload" id="cover-upload">
+                        <span id="cover-placeholder">点击上传封面</span>
+                        <img id="cover-preview" style="display:none;" alt="封面预览">
+                        <input type="file" id="cover-input" accept="image/*">
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label>书名</label>
+                    <input type="text" id="work-title-input" placeholder="请输入书名">
+                </div>
+                <div class="form-field">
+                    <label>简介</label>
+                    <textarea id="work-desc-input" placeholder="请输入作品简介（选填）"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-ghost" id="modal-cancel">取消</button>
+                <button class="btn-primary" id="modal-save"><i data-lucide="save"></i>保存</button>
+            </div>
+        </div>
+    </div>
+
+    <script>lucide.createIcons();</script>
+    <script>
+// Sidebar collapse persistence
+(function(){
+  var shell = document.querySelector('.app-shell');
+  var btn = document.querySelector('[data-dom-id="sidebar-collapse-btn"]');
+  var key = 'xiaozhi_sidebar_collapsed';
+  function apply(state) {
+    if (!shell) return;
+    if (state) shell.classList.add('sidebar-collapsed');
+    else shell.classList.remove('sidebar-collapsed');
+    if (btn) btn.setAttribute('aria-expanded', state ? 'false' : 'true');
+  }
+  var saved = localStorage.getItem(key);
+  apply(saved === '1');
+  if (btn) {
+    btn.addEventListener('click', function() {
+      var willCollapse = !shell.classList.contains('sidebar-collapsed');
+      apply(willCollapse);
+      localStorage.setItem(key, willCollapse ? '1' : '0');
+    });
+  }
+})();
+</script>
+    <script>
+(function(){
+  var WORKS_KEY = 'xiaozhi_works';
+  var CURRENT_KEY = 'xiaozhi_current_work_id';
+
+  function loadWorks() {
+    try { return JSON.parse(localStorage.getItem(WORKS_KEY)) || []; } catch(e) { return []; }
+  }
+  function saveWorks(works) { localStorage.setItem(WORKS_KEY, JSON.stringify(works)); }
+  function loadCurrentId() { return localStorage.getItem(CURRENT_KEY) || null; }
+  function saveCurrentId(id) {
+    if (id) localStorage.setItem(CURRENT_KEY, id);
+    else localStorage.removeItem(CURRENT_KEY);
+  }
+
+  function seedWorks() {
+    var works = loadWorks();
+    if (!works.length) {
+      works = [{
+        id: 'work-' + Date.now(),
+        title: '星海拾遗',
+        desc: '一部关于失落文明与未来探索的科幻小说，主角在星际遗迹中寻找人类起源的真相。',
+        cover: '',
+        createdAt: Date.now(),
+        updatedAt: Date.now()
+      }];
+      saveWorks(works);
+      saveCurrentId(works[0].id);
+    }
+    return works;
+  }
+
+  var works = seedWorks();
+  var currentId = loadCurrentId();
+  if (!currentId && works.length) { currentId = works[0].id; saveCurrentId(currentId); }
+
+  var container = document.getElementById('works-container');
+  var currentNameEl = document.getElementById('current-work-name');
+  var modal = document.getElementById('work-modal');
+  var modalTitle = document.getElementById('modal-title');
+  var titleInput = document.getElementById('work-title-input');
+  var descInput = document.getElementById('work-desc-input');
+  var coverInput = document.getElementById('cover-input');
+  var coverPreview = document.getElementById('cover-preview');
+  var coverPlaceholder = document.getElementById('cover-placeholder');
+  var editingId = null;
+  var pendingCover = '';
+
+  function getCurrent() {
+    return works.find(function(w){ return w.id === currentId; });
+  }
+
+  function updateCurrentName() {
+    var w = getCurrent();
+    currentNameEl.textContent = w ? w.title : '未选择';
+  }
+
+  function renderCoverUpload(cover) {
+    pendingCover = cover || '';
+    if (pendingCover) {
+      coverPreview.src = pendingCover;
+      coverPreview.style.display = 'block';
+      coverPlaceholder.style.display = 'none';
+    } else {
+      coverPreview.style.display = 'none';
+      coverPlaceholder.style.display = 'block';
+      coverPreview.src = '';
+    }
+  }
+
+  function openModal(isEdit, work) {
+    editingId = isEdit && work ? work.id : null;
+    modalTitle.textContent = isEdit ? '编辑作品' : '新建作品';
+    titleInput.value = work ? work.title : '';
+    descInput.value = work ? work.desc : '';
+    renderCoverUpload(work ? work.cover : '');
+    modal.classList.add('open');
+    titleInput.focus();
+  }
+
+  function closeModal() {
+    modal.classList.remove('open');
+    editingId = null;
+    pendingCover = '';
+    titleInput.value = '';
+    descInput.value = '';
+    renderCoverUpload('');
+  }
+
+  function render() {
+    container.innerHTML = '';
+    if (!works.length) {
+      container.innerHTML = '<div class="empty-state" style="grid-column:1/-1;"><i data-lucide="book-x"></i><div>还没有作品</div><div style="font-size:13px;margin-top:6px;">点击右上角「新建作品」开始创作</div></div>';
+      lucide.createIcons();
+      updateCurrentName();
+      return;
+    }
+
+    works.forEach(function(work){
+      var isCurrent = work.id === currentId;
+      var card = document.createElement('div');
+      card.className = 'work-card' + (isCurrent ? ' active' : '');
+      card.setAttribute('data-work-id', work.id);
+
+      var coverHtml = work.cover
+        ? '<div class="work-cover"><img src="' + work.cover + '" alt="' + work.title + '"></div>'
+        : '<div class="work-cover"><i data-lucide="book" style="width:40px;height:40px;"></i></div>';
+
+      card.innerHTML =
+        (isCurrent ? '<span class="work-current-badge">当前作品</span>' : '') +
+        '<div class="work-card-actions">' +
+          '<button class="btn-icon" data-action="edit" title="编辑"><i data-lucide="pencil"></i></button>' +
+          '<button class="btn-icon" data-action="delete" title="删除"><i data-lucide="trash-2"></i></button>' +
+        '</div>' +
+        coverHtml +
+        '<div class="work-info">' +
+          '<div class="work-title">' + escapeHtml(work.title) + '</div>' +
+          '<div class="work-desc">' + escapeHtml(work.desc || '暂无简介') + '</div>' +
+        '</div>';
+
+      card.addEventListener('click', function(e){
+        if (e.target.closest('[data-action]')) return;
+        currentId = work.id;
+        saveCurrentId(currentId);
+        render();
+        updateCurrentName();
+      });
+
+      var editBtn = card.querySelector('[data-action="edit"]');
+      var deleteBtn = card.querySelector('[data-action="delete"]');
+      editBtn.addEventListener('click', function(e){ e.stopPropagation(); openModal(true, work); });
+      deleteBtn.addEventListener('click', function(e){ e.stopPropagation(); confirmDelete(work); });
+
+      container.appendChild(card);
+    });
+
+    // Add work card
+    var addCard = document.createElement('div');
+    addCard.className = 'add-work-card';
+    addCard.innerHTML = '<i data-lucide="plus-circle" style="width:40px;height:40px;"></i><span style="font-size:14px;font-weight:500;">新建作品</span>';
+    addCard.addEventListener('click', function(){ openModal(false); });
+    container.appendChild(addCard);
+
+    lucide.createIcons();
+    updateCurrentName();
+  }
+
+  function escapeHtml(text) {
+    var div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  function confirmDelete(work) {
+    if (!confirm('确定要删除《' + work.title + '》吗？此操作不可恢复。')) return;
+    works = works.filter(function(w){ return w.id !== work.id; });
+    if (currentId === work.id) {
+      currentId = works.length ? works[0].id : null;
+      saveCurrentId(currentId);
+    }
+    saveWorks(works);
+    render();
+  }
+
+  function saveWork() {
+    var title = titleInput.value.trim();
+    if (!title) { titleInput.focus(); return; }
+    var desc = descInput.value.trim();
+    if (editingId) {
+      works = works.map(function(w){
+        if (w.id !== editingId) return w;
+        return Object.assign({}, w, { title: title, desc: desc, cover: pendingCover, updatedAt: Date.now() });
+      });
+    } else {
+      works.push({
+        id: 'work-' + Date.now(),
+        title: title,
+        desc: desc,
+        cover: pendingCover,
+        createdAt: Date.now(),
+        updatedAt: Date.now()
+      });
+    }
+    saveWorks(works);
+    closeModal();
+    render();
+  }
+
+  document.getElementById('btn-add-work').addEventListener('click', function(){ openModal(false); });
+  document.getElementById('modal-close').addEventListener('click', closeModal);
+  document.getElementById('modal-cancel').addEventListener('click', closeModal);
+  document.getElementById('modal-save').addEventListener('click', saveWork);
+  document.getElementById('cover-input').addEventListener('change', function(e){
+    var file = e.target.files[0];
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function(ev){ renderCoverUpload(ev.target.result); };
+    reader.readAsDataURL(file);
+  });
+  modal.addEventListener('click', function(e){ if (e.target === modal) closeModal(); });
+  titleInput.addEventListener('keydown', function(e){ if (e.key === 'Enter') saveWork(); });
+
+  render();
+})();
+</script>
+<script src="assets/xiaozhi-app.js"></script>
+</body>
+</html>

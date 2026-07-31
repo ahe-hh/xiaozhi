@@ -740,11 +740,12 @@ body { background: var(--nw-background); color: var(--nw-foreground); }
         </svg>
 
         <!-- Map toolbar -->
-        <div style="position:absolute;top:12px;left:12px;display:flex;gap:8px;">
+        <div style="position:absolute;top:12px;left:12px;display:flex;gap:8px;z-index:5;">
             <button class="btn-ghost" data-dom-id="btn-upload-map" style="font-size:12px;padding:5px 10px;"><i data-lucide="upload"></i>上传地图</button>
-            <button class="btn-ghost" style="font-size:12px;padding:5px 10px;"><i data-lucide="plus"></i></button>
-            <button class="btn-ghost" style="font-size:12px;padding:5px 10px;"><i data-lucide="minus"></i></button>
-            <button class="btn-ghost" style="font-size:12px;padding:5px 10px;">重置视图</button>
+            <button class="btn-ghost" style="font-size:12px;padding:5px 10px;" title="添加地点"><i data-lucide="plus"></i></button>
+            <button class="btn-ghost" style="font-size:12px;padding:5px 10px;" title="缩小"><i data-lucide="minus"></i></button>
+            <button class="btn-ghost" style="font-size:12px;padding:5px 10px;" title="重置视图">重置视图</button>
+            <button class="btn-ghost" data-dom-id="btn-map-settings" style="font-size:12px;padding:5px 10px;margin-left:auto;" title="地图设置"><i data-lucide="settings"></i>地图设置</button>
         </div>
 
         <!-- Map legend -->
@@ -770,7 +771,7 @@ body { background: var(--nw-background); color: var(--nw-foreground); }
         </div>
 
         <!-- Location detail popup -->
-        <div id="location-popup" style="position:absolute;top:12px;right:12px;width:220px;background:var(--nw-background);border:1px solid var(--nw-border);border-radius:8px;padding:14px;">
+        <div id="location-popup" style="position:absolute;top:12px;right:12px;width:220px;background:var(--nw-background);border:1px solid var(--nw-border);border-radius:8px;padding:14px;display:none;z-index:5;">
             <div style="font-size:15px;font-weight:600;color:var(--nw-foreground);margin-bottom:6px;">星海港口</div>
             <span class="badge badge-info" style="margin-bottom:10px;">主要城市</span>
             <div style="font-size:13px;color:var(--nw-foreground);display:flex;align-items:center;gap:6px;margin-top:10px;margin-bottom:8px;">
@@ -946,18 +947,312 @@ body { background: var(--nw-background); color: var(--nw-foreground); }
 })();
 </script>
     <script>
-// Location marker click interaction
+// Location data store
+var locationData = {
+    '星海港口': {
+        type: '主要城市',
+        faction: '星海联盟',
+        desc: '大陆西海岸最大的贸易港口，林昭的故乡。常年雾气弥漫，传说海底沉睡着古老的力量。',
+        details: { '人口': '约 12,000', '主要势力': '商会、港口守卫', '特产': '星纹珊瑚、深海珍珠' },
+        color: 'var(--nw-primary)'
+    },
+    '北境冰原': {
+        type: '重要据点',
+        faction: '星海联盟',
+        desc: '位于大陆最北端的冰封之地，常年积雪。传闻古代遗迹藏于冰下，是古老文明的发源地。',
+        details: { '人口': '约 2,000', '主要势力': '游牧部落', '特产': '寒冰晶石、远古遗物' },
+        color: 'var(--nw-accent-soft)'
+    },
+    '雾隐谷': {
+        type: '重要据点',
+        faction: '星海联盟',
+        desc: '被终年不散的浓雾笼罩的神秘山谷，是林昭与苏晚初次相遇的地方。',
+        details: { '人口': '约 500', '主要势力': '隐世医者', '特产': '雾隐草、静心茶' },
+        color: 'var(--nw-accent-medium)'
+    },
+    '暗影森林': {
+        type: '自然区域',
+        faction: '暗影教会',
+        desc: '阴森恐怖的古老森林，树木遮天蔽日。传闻暗影教会的秘密基地就藏于此处。',
+        details: { '人口': '不明', '主要势力': '暗影教会', '特产': '暗影蘑菇、夜光苔藓' },
+        color: 'var(--state-success)'
+    },
+    '落日城': {
+        type: '王庭领地',
+        faction: '落日王庭',
+        desc: '落日王庭的首都，以壮观的日落景观闻名。城中心的王宫中保存着千年历史的典籍。',
+        details: { '人口': '约 45,000', '主要势力': '王室、贵族议会', '特产': '落日酒、金纹丝绸' },
+        color: 'var(--state-warning)'
+    },
+    '南方群岛': {
+        type: '重要据点',
+        faction: '星海联盟',
+        desc: '由数十个小岛组成的群岛，是海上贸易的重要枢纽。岛上居民以捕鱼和珍珠养殖为生。',
+        details: { '人口': '约 8,000', '主要势力': '群岛议会', '特产': '南海珍珠、香料' },
+        color: 'var(--nw-primary-300)'
+    }
+};
+
+// Map location data to markers
 document.querySelectorAll('.location-marker').forEach(function(marker) {
-    marker.style.cursor = 'pointer';
-    marker.addEventListener('click', function() {
-        document.querySelectorAll('.location-marker').forEach(function(m) {
-            m.setAttribute('r', m.dataset.originalR || m.getAttribute('r'));
+    var nextText = marker.nextElementSibling;
+    var name = nextText ? nextText.textContent.trim() : '';
+    if (locationData[name]) {
+        marker.dataset.location = name;
+        marker.style.cursor = 'pointer';
+        marker.style.transition = 'r 180ms ease, filter 180ms ease';
+        // Add hover glow
+        marker.addEventListener('mouseenter', function() {
+            this.style.filter = 'drop-shadow(0 0 6px rgba(74,111,160,0.4))';
         });
+        marker.addEventListener('mouseleave', function() {
+            this.style.filter = '';
+        });
+    }
+});
+
+// Click to show info popup
+document.querySelectorAll('.location-marker').forEach(function(marker) {
+    marker.addEventListener('click', function() {
+        var name = this.dataset.location;
+        if (!name || !locationData[name]) return;
+        
+        // Reset other markers
+        document.querySelectorAll('.location-marker').forEach(function(m) {
+            var origR = m.dataset.origR || m.getAttribute('r');
+            m.setAttribute('r', origR);
+        });
+        
+        // Enlarge clicked marker
         var r = parseFloat(this.getAttribute('r'));
-        this.dataset.originalR = r;
-        this.setAttribute('r', r + 4);
+        if (!this.dataset.origR) this.dataset.origR = r;
+        this.setAttribute('r', r + 3);
+        
+        // Update popup
+        updateLocationPopup(name);
     });
 });
+
+function updateLocationPopup(name) {
+    var data = locationData[name];
+    if (!data) return;
+    var popup = document.getElementById('location-popup');
+    if (!popup) return;
+    
+    var detailsHtml = Object.entries(data.details).map(function(entry) {
+        return '<div style="display:flex;justify-content:space-between;"><span style="color:var(--nw-neutral-500);">' + entry[0] + '</span><span style="color:var(--nw-foreground);font-weight:500;">' + entry[1] + '</span></div>';
+    }).join('');
+    
+    popup.innerHTML = 
+        '<div style="font-size:15px;font-weight:600;color:var(--nw-foreground);margin-bottom:6px;">' + name + '</div>' +
+        '<span class="badge badge-info" style="margin-bottom:10px;">' + data.type + '</span>' +
+        '<div style="font-size:13px;color:var(--nw-foreground);display:flex;align-items:center;gap:6px;margin-top:10px;margin-bottom:8px;">' +
+            '<span style="width:8px;height:8px;border-radius:50%;background:' + data.color + ';flex-shrink:0;"></span>' +
+            '属于 ' + data.faction +
+        '</div>' +
+        '<p style="font-size:13px;line-height:1.5;color:var(--nw-neutral-700);margin:0 0 10px 0;">' + data.desc + '</p>' +
+        '<div style="display:flex;flex-direction:column;gap:4px;font-size:12px;margin-bottom:10px;">' + detailsHtml + '</div>' +
+        '<a style="font-size:12px;color:var(--nw-primary-600);cursor:pointer;" data-edit-location="' + name + '">编辑信息</a>' +
+        '<a style="font-size:12px;color:var(--nw-error);cursor:pointer;margin-left:12px;" data-delete-location="' + name + '">删除</a>';
+    
+    popup.style.display = 'block';
+    
+    // Bind edit/delete buttons
+    popup.querySelectorAll('[data-edit-location]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            editLocation(btn.getAttribute('data-edit-location'));
+        });
+    });
+    popup.querySelectorAll('[data-delete-location]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            deleteLocation(btn.getAttribute('data-delete-location'));
+        });
+    });
+}
+
+// Edit location
+function editLocation(name) {
+    var data = locationData[name];
+    if (!data) return;
+    
+    var modal = document.createElement('div');
+    modal.style.cssText = 'position:fixed;inset:0;background:rgba(15,19,24,0.35);z-index:50;display:flex;align-items:center;justify-content:center;';
+    
+    var detailFields = Object.entries(data.details).map(function(entry) {
+        return '<label style="font-size:13px;color:var(--nw-muted-foreground);">' + entry[0] + '</label>' +
+            '<input type="text" data-detail-key="' + entry[0] + '" value="' + entry[1] + '" style="border:1px solid var(--nw-border);border-radius:8px;padding:6px 10px;font-size:13px;background:var(--nw-background);color:var(--nw-foreground);outline:none;">';
+    }).join('');
+    
+    modal.innerHTML = 
+        '<div style="background:var(--nw-background);border:1px solid var(--nw-border);border-radius:12px;padding:20px;width:460px;max-width:90vw;box-shadow:0 8px 32px rgba(15,23,42,0.12);">' +
+            '<div style="font-size:16px;font-weight:600;color:var(--nw-foreground);margin-bottom:16px;">编辑地点信息</div>' +
+            '<div style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px;max-height:60vh;overflow-y:auto;">' +
+                '<label style="font-size:13px;color:var(--nw-muted-foreground);">地点名称</label>' +
+                '<input type="text" id="edit-loc-name" value="' + name + '" style="border:1px solid var(--nw-border);border-radius:8px;padding:8px 12px;font-size:13px;background:var(--nw-background);color:var(--nw-foreground);outline:none;">' +
+                '<label style="font-size:13px;color:var(--nw-muted-foreground);">地点类型</label>' +
+                '<select id="edit-loc-type" style="border:1px solid var(--nw-border);border-radius:8px;padding:8px 12px;font-size:13px;background:var(--nw-background);color:var(--nw-foreground);outline:none;">' +
+                    '<option' + (data.type === '主要城市' ? ' selected' : '') + '>主要城市</option>' +
+                    '<option' + (data.type === '重要据点' ? ' selected' : '') + '>重要据点</option>' +
+                    '<option' + (data.type === '王庭领地' ? ' selected' : '') + '>王庭领地</option>' +
+                    '<option' + (data.type === '自然区域' ? ' selected' : '') + '>自然区域</option>' +
+                '</select>' +
+                '<label style="font-size:13px;color:var(--nw-muted-foreground);">所属势力</label>' +
+                '<input type="text" id="edit-loc-faction" value="' + data.faction + '" style="border:1px solid var(--nw-border);border-radius:8px;padding:8px 12px;font-size:13px;background:var(--nw-background);color:var(--nw-foreground);outline:none;">' +
+                '<label style="font-size:13px;color:var(--nw-muted-foreground);">地点描述</label>' +
+                '<textarea id="edit-loc-desc" rows="3" style="border:1px solid var(--nw-border);border-radius:8px;padding:8px 12px;font-size:13px;background:var(--nw-background);color:var(--nw-foreground);outline:none;resize:vertical;">' + data.desc + '</textarea>' +
+                '<div style="border-top:1px solid var(--nw-border);padding-top:10px;margin-top:4px;"></div>' +
+                '<div style="font-size:13px;font-weight:500;color:var(--nw-foreground);">详细信息</div>' +
+                detailFields +
+            '</div>' +
+            '<div style="display:flex;justify-content:flex-end;gap:8px;">' +
+                '<button id="edit-cancel" class="btn-ghost" style="font-size:13px;">取消</button>' +
+                '<button id="edit-confirm" class="btn-primary" style="font-size:13px;">保存修改</button>' +
+            '</div>' +
+        '</div>';
+    
+    document.body.appendChild(modal);
+    
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) modal.remove();
+    });
+    modal.querySelector('#edit-cancel').addEventListener('click', function() { modal.remove(); });
+    modal.querySelector('#edit-confirm').addEventListener('click', function() {
+        var newName = modal.querySelector('#edit-loc-name').value.trim();
+        var newType = modal.querySelector('#edit-loc-type').value;
+        var newFaction = modal.querySelector('#edit-loc-faction').value.trim();
+        var newDesc = modal.querySelector('#edit-loc-desc').value.trim();
+        var newDetails = {};
+        modal.querySelectorAll('[data-detail-key]').forEach(function(input) {
+            newDetails[input.getAttribute('data-detail-key')] = input.value.trim();
+        });
+        
+        if (!newName) { alert('请填写地点名称'); return; }
+        
+        // Update data
+        locationData[name] = {
+            type: newType,
+            faction: newFaction,
+            desc: newDesc,
+            details: newDetails,
+            color: data.color
+        };
+        
+        if (name !== newName) {
+            locationData[newName] = locationData[name];
+            delete locationData[name];
+            // Update marker data
+            var marker = document.querySelector('.location-marker[data-location="' + name + '"]');
+            if (marker) marker.setAttribute('data-location', newName);
+            // Update text label
+            var textEl = document.querySelector('.location-marker[data-location="' + newName + '"]');
+            if (textEl) {
+                var nextText = textEl.nextElementSibling;
+                if (nextText) nextText.textContent = newName;
+            }
+        }
+        
+        updateLocationPopup(newName);
+        modal.remove();
+    });
+}
+
+// Delete location
+function deleteLocation(name) {
+    if (!confirm('确定要删除地点「' + name + '」吗？')) return;
+    delete locationData[name];
+    var marker = document.querySelector('.location-marker[data-location="' + name + '"]');
+    if (marker) {
+        var nextText = marker.nextElementSibling;
+        if (nextText) nextText.remove();
+        marker.remove();
+    }
+    var popup = document.getElementById('location-popup');
+    if (popup) popup.style.display = 'none';
+}
+
+// Add new location
+function addLocation() {
+    var name = prompt('请输入新地点名称：', '新地点');
+    if (!name) return;
+    if (locationData[name]) { alert('该地点已存在'); return; }
+    
+    var type = prompt('地点类型？（主要城市/重要据点/王庭领地/自然区域）', '重要据点') || '重要据点';
+    var faction = prompt('所属势力？', '星海联盟') || '未分类';
+    var desc = prompt('地点描述：', '待补充描述') || '待补充描述';
+    
+    locationData[name] = {
+        type: type,
+        faction: faction,
+        desc: desc,
+        details: { '人口': '未知', '主要势力': faction, '特产': '未知' },
+        color: 'var(--nw-primary-300)'
+    };
+    
+    // Add SVG marker
+    var svg = document.querySelector('.location-marker').closest('svg');
+    if (!svg) return;
+    
+    // Place at center of current viewBox
+    var viewBoxParts = svg.getAttribute('viewBox').split(' ');
+    var cx = parseFloat(viewBoxParts[0]) + parseFloat(viewBoxParts[2]) / 2;
+    var cy = parseFloat(viewBoxParts[1]) + parseFloat(viewBoxParts[3]) / 2;
+    
+    var colorMap = { '主要城市': 'var(--nw-primary)', '重要据点': 'var(--nw-accent-medium)', '王庭领地': 'var(--state-warning)', '自然区域': 'var(--state-success)' };
+    var color = colorMap[type] || 'var(--nw-primary-300)';
+    var radius = type === '主要城市' ? 8 : 6;
+    
+    var circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    circle.setAttribute('class', 'location-marker');
+    circle.setAttribute('cx', cx);
+    circle.setAttribute('cy', cy);
+    circle.setAttribute('r', radius);
+    circle.setAttribute('fill', color);
+    circle.setAttribute('stroke', 'white');
+    circle.setAttribute('stroke-width', '2');
+    circle.setAttribute('data-location', name);
+    circle.style.cursor = 'pointer';
+    circle.style.transition = 'r 180ms ease, filter 180ms ease';
+    
+    var text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    text.setAttribute('x', cx);
+    text.setAttribute('y', cy - 12);
+    text.setAttribute('text-anchor', 'middle');
+    text.setAttribute('font-size', '12');
+    text.setAttribute('fill', 'var(--nw-foreground)');
+    text.setAttribute('font-weight', '500');
+    text.textContent = name;
+    
+    // Insert before closing </svg>
+    svg.appendChild(circle);
+    svg.appendChild(text);
+    
+    // Bind hover/click
+    circle.addEventListener('mouseenter', function() { this.style.filter = 'drop-shadow(0 0 6px rgba(74,111,160,0.4))'; });
+    circle.addEventListener('mouseleave', function() { this.style.filter = ''; });
+    circle.addEventListener('click', function() {
+        var r = parseFloat(this.getAttribute('r'));
+        this.dataset.origR = r;
+        this.setAttribute('r', r + 3);
+        updateLocationPopup(name);
+    });
+    
+    // Update popup
+    updateLocationPopup(name);
+    
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+}
+
+// Add location button binding
+var addBtn = document.querySelector('button[style*="plus"]');
+document.querySelectorAll('.btn-ghost').forEach(function(btn) {
+    if (btn.querySelector('svg') && btn.querySelector('svg').getAttribute('data-lucide') === 'plus') {
+        addBtn = btn;
+    }
+});
+if (addBtn) {
+    addBtn.addEventListener('click', addLocation);
+}
+
 // Map pan & zoom via viewBox
 var mapCard = document.querySelector('.card[style*="height:calc(100vh - 200px)"]');
 var mapSvg = mapCard ? mapCard.querySelector('svg') : null;
@@ -988,10 +1283,19 @@ if (mapSvg) {
         mapSvg.style.cursor = 'grab';
     });
     mapSvg.style.cursor = 'grab';
-    // Zoom buttons
-    var zoomInBtn = mapCard.querySelector('button:nth-child(2)');
-    var zoomOutBtn = mapCard.querySelector('button:nth-child(3)');
-    var resetBtn = mapCard.querySelector('button:nth-child(4)');
+    
+    // Zoom buttons (plus = first zoom, minus = second zoom, reset = third)
+    var toolbar = mapCard.querySelector('div[style*="position:absolute"]');
+    if (toolbar) {
+        var buttons = toolbar.querySelectorAll('button');
+        if (buttons[1]) buttons[1].addEventListener('click', function() { applyZoom(0.8); });
+        if (buttons[2]) buttons[2].addEventListener('click', function() { applyZoom(1.25); });
+        if (buttons[3]) buttons[3].addEventListener('click', function() {
+            viewBox = { x: 0, y: 0, w: 800, h: 500 };
+            mapSvg.setAttribute('viewBox', '0 0 800 500');
+        });
+    }
+    
     function applyZoom(factor) {
         var cx = viewBox.x + viewBox.w / 2;
         var cy = viewBox.y + viewBox.h / 2;
@@ -1001,13 +1305,8 @@ if (mapSvg) {
         viewBox.y = cy - viewBox.h / 2;
         mapSvg.setAttribute('viewBox', viewBox.x + ' ' + viewBox.y + ' ' + viewBox.w + ' ' + viewBox.h);
     }
-    if (zoomInBtn) zoomInBtn.addEventListener('click', function() { applyZoom(0.8); });
-    if (zoomOutBtn) zoomOutBtn.addEventListener('click', function() { applyZoom(1.25); });
-    if (resetBtn) resetBtn.addEventListener('click', function() {
-        viewBox = { x: 0, y: 0, w: 800, h: 500 };
-        mapSvg.setAttribute('viewBox', '0 0 800 500');
-    });
 }
+
 // Upload button feedback
 var uploadBtn = document.querySelector('[data-dom-id="btn-upload-map"]');
 if (uploadBtn) {
@@ -1024,6 +1323,84 @@ if (uploadBtn) {
         lucide.createIcons();
     });
 }
+
+// Map settings
+var mapSettingsBtn = document.querySelector('[data-dom-id="btn-map-settings"]');
+if (mapSettingsBtn) {
+    mapSettingsBtn.addEventListener('click', function() {
+        var modal = document.createElement('div');
+        modal.style.cssText = 'position:fixed;inset:0;background:rgba(15,19,24,0.35);z-index:50;display:flex;align-items:center;justify-content:center;';
+        
+        var locationCount = Object.keys(locationData).length;
+        var typeCount = {};
+        Object.values(locationData).forEach(function(d) {
+            typeCount[d.type] = (typeCount[d.type] || 0) + 1;
+        });
+        var typeSummary = Object.entries(typeCount).map(function(e) {
+            return '<div style="display:flex;justify-content:space-between;"><span>' + e[0] + '</span><span style="font-weight:500;">' + e[1] + ' 个</span></div>';
+        }).join('');
+        
+        modal.innerHTML = 
+            '<div style="background:var(--nw-background);border:1px solid var(--nw-border);border-radius:12px;padding:20px;width:480px;max-width:90vw;box-shadow:0 8px 32px rgba(15,23,42,0.12);">' +
+                '<div style="font-size:16px;font-weight:600;color:var(--nw-foreground);margin-bottom:16px;">地图设置</div>' +
+                '<div style="display:flex;flex-direction:column;gap:14px;margin-bottom:16px;">' +
+                    '<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:var(--nw-neutral-50);border-radius:8px;">' +
+                        '<div><div style="font-size:13px;font-weight:500;">地点总数</div><div style="font-size:11px;color:var(--nw-muted-foreground);">已添加的地点数量</div></div>' +
+                        '<div style="font-size:20px;font-weight:600;color:var(--nw-primary);">' + locationCount + '</div>' +
+                    '</div>' +
+                    '<div style="padding:10px 12px;background:var(--nw-neutral-50);border-radius:8px;">' +
+                        '<div style="font-size:13px;font-weight:500;margin-bottom:8px;">地点类型分布</div>' +
+                        '<div style="display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--nw-neutral-700);">' + typeSummary + '</div>' +
+                    '</div>' +
+                '</div>' +
+                '<div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px;">' +
+                    '<div style="font-size:13px;font-weight:500;color:var(--nw-foreground);">地图操作</div>' +
+                    '<div style="display:flex;gap:8px;flex-wrap:wrap;">' +
+                        '<button id="ms-add" class="btn-ghost" style="font-size:12px;"><i data-lucide="plus"></i>添加地点</button>' +
+                        '<button id="ms-reset" class="btn-ghost" style="font-size:12px;"><i data-lucide="rotate-ccw"></i>重置视图</button>' +
+                        '<button id="ms-clear" class="btn-ghost" style="font-size:12px;color:var(--state-error);"><i data-lucide="trash-2"></i>清空地图</button>' +
+                    '</div>' +
+                '</div>' +
+                '<div style="display:flex;justify-content:flex-end;gap:8px;">' +
+                    '<button id="ms-close" class="btn-primary" style="font-size:13px;">关闭</button>' +
+                '</div>' +
+            '</div>';
+        
+        document.body.appendChild(modal);
+        
+        modal.addEventListener('click', function(e) { if (e.target === modal) modal.remove(); });
+        modal.querySelector('#ms-close').addEventListener('click', function() { modal.remove(); });
+        modal.querySelector('#ms-add').addEventListener('click', function() { modal.remove(); addLocation(); });
+        modal.querySelector('#ms-reset').addEventListener('click', function() {
+            var mapSvgEl = document.querySelector('.location-marker').closest('svg');
+            if (mapSvgEl) mapSvgEl.setAttribute('viewBox', '0 0 800 500');
+            modal.remove();
+        });
+        modal.querySelector('#ms-clear').addEventListener('click', function() {
+            if (!confirm('确定要清空所有地点吗？此操作不可撤销。')) return;
+            Object.keys(locationData).forEach(function(name) {
+                var marker = document.querySelector('.location-marker[data-location="' + name + '"]');
+                if (marker) {
+                    var nextText = marker.nextElementSibling;
+                    if (nextText) nextText.remove();
+                    marker.remove();
+                }
+            });
+            locationData = {};
+            var popup = document.getElementById('location-popup');
+            if (popup) popup.style.display = 'none';
+            modal.remove();
+        });
+        
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+    });
+}
+
+// Initialize default popup
+document.addEventListener('DOMContentLoaded', function() {
+    updateLocationPopup('星海港口');
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+});
 </script>
 <style>@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}</style>
 <script src="assets/xiaozhi-app.js"></script>

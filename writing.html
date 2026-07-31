@@ -963,11 +963,11 @@ body { background: var(--nw-background); color: var(--nw-foreground); }
                                         <span class="grp-label">第一卷 · 星海初临</span>
                                     </div>
                                     <div class="chapter-group-items">
-                                        <a class="chapter-item active">第1章 序章：星海</a>
-                                        <a class="chapter-item">第2章 港口少年</a>
-                                        <a class="chapter-item">第3章 神秘信物</a>
-                                        <a class="chapter-item">第4章 初次邂逅</a>
-                                        <a class="chapter-item">第5章 暗流初现</a>
+                                        <a class="chapter-item active" data-chapter-id="ch1">第1章 序章：星海</a>
+                                        <a class="chapter-item" data-chapter-id="ch2">第2章 港口少年</a>
+                                        <a class="chapter-item" data-chapter-id="ch3">第3章 神秘信物</a>
+                                        <a class="chapter-item" data-chapter-id="ch4">第4章 初次邂逅</a>
+                                        <a class="chapter-item" data-chapter-id="ch5">第5章 暗流初现</a>
                                     </div>
                                 </div>
                                 <!-- 第二卷 (collapsed) -->
@@ -978,19 +978,19 @@ body { background: var(--nw-background); color: var(--nw-foreground); }
                                         <span class="chapter-group-count">13</span>
                                     </div>
                                     <div class="chapter-group-items" style="display:none;">
-                                        <a class="chapter-item">第6章 暴风雨夜</a>
-                                        <a class="chapter-item">第7章 暗巷追逐</a>
-                                        <a class="chapter-item">第8章 旧友重逢</a>
-                                        <a class="chapter-item">第9章 线索浮现</a>
-                                        <a class="chapter-item">第10章 午夜密会</a>
-                                        <a class="chapter-item">第11章 身份疑云</a>
-                                        <a class="chapter-item">第12章 潜入府邸</a>
-                                        <a class="chapter-item">第13章 档案之谜</a>
-                                        <a class="chapter-item">第14章 月下对峙</a>
-                                        <a class="chapter-item">第15章 意外盟友</a>
-                                        <a class="chapter-item">第16章 迷雾渐散</a>
-                                        <a class="chapter-item">第17章 暗棋布局</a>
-                                        <a class="chapter-item">第18章 风云骤变</a>
+                                        <a class="chapter-item" data-chapter-id="ch6">第6章 暴风雨夜</a>
+                                        <a class="chapter-item" data-chapter-id="ch7">第7章 暗巷追逐</a>
+                                        <a class="chapter-item" data-chapter-id="ch8">第8章 旧友重逢</a>
+                                        <a class="chapter-item" data-chapter-id="ch9">第9章 线索浮现</a>
+                                        <a class="chapter-item" data-chapter-id="ch10">第10章 午夜密会</a>
+                                        <a class="chapter-item" data-chapter-id="ch11">第11章 身份疑云</a>
+                                        <a class="chapter-item" data-chapter-id="ch12">第12章 潜入府邸</a>
+                                        <a class="chapter-item" data-chapter-id="ch13">第13章 档案之谜</a>
+                                        <a class="chapter-item" data-chapter-id="ch14">第14章 月下对峙</a>
+                                        <a class="chapter-item" data-chapter-id="ch15">第15章 意外盟友</a>
+                                        <a class="chapter-item" data-chapter-id="ch16">第16章 迷雾渐散</a>
+                                        <a class="chapter-item" data-chapter-id="ch17">第17章 暗棋布局</a>
+                                        <a class="chapter-item" data-chapter-id="ch18">第18章 风云骤变</a>
                                     </div>
                                 </div>
                                 <!-- 第三卷 -->
@@ -1000,12 +1000,12 @@ body { background: var(--nw-background); color: var(--nw-foreground); }
                                         <span class="grp-label">第三卷 · 暗流涌动</span>
                                     </div>
                                     <div class="chapter-group-items">
-                                        <a class="chapter-item">第19章 真相碎片</a>
-                                        <a class="chapter-item">第20章 旧日暗线</a>
-                                        <a class="chapter-item">第21章 抉择时刻</a>
-                                        <a class="chapter-item">第22章 风暴前夕</a>
-                                        <a class="chapter-item">第23章 交汇之地</a>
-                                        <a class="chapter-item current">第24章 暗流涌动</a>
+                                        <a class="chapter-item" data-chapter-id="ch19">第19章 真相碎片</a>
+                                        <a class="chapter-item" data-chapter-id="ch20">第20章 旧日暗线</a>
+                                        <a class="chapter-item" data-chapter-id="ch21">第21章 抉择时刻</a>
+                                        <a class="chapter-item" data-chapter-id="ch22">第22章 风暴前夕</a>
+                                        <a class="chapter-item" data-chapter-id="ch23">第23章 交汇之地</a>
+                                        <a class="chapter-item current" data-chapter-id="ch24">第24章 暗流涌动</a>
                                     </div>
                                 </div>
                             </div>
@@ -1038,23 +1038,6 @@ body { background: var(--nw-background); color: var(--nw-foreground); }
 
                         <!-- 3. Chapter notes panel -->
                         <aside class="notes-panel">
-                            <div class="notes-section">
-                                <div class="notes-section-title">本章要点</div>
-                                <ul class="notes-checklist">
-                                    <li class="check-item done">
-                                        <i data-lucide="check-square"></i><span>陈默首次以盟友身份登场</span>
-                                    </li>
-                                    <li class="check-item done">
-                                        <i data-lucide="check-square"></i><span>玉佩伏笔回收铺垫</span>
-                                    </li>
-                                    <li class="check-item">
-                                        <i data-lucide="square"></i><span>叶青立场揭示</span>
-                                    </li>
-                                    <li class="check-item">
-                                        <i data-lucide="square"></i><span>黑帆船徽记伏笔埋设</span>
-                                    </li>
-                                </ul>
-                            </div>
                             <div class="notes-section">
                                 <div class="notes-section-title">涉及角色</div>
                                 <div class="notes-tags">
@@ -1225,16 +1208,123 @@ document.querySelectorAll('.chapter-item').forEach(function(item) {
     });
     item.addEventListener('click', function(e) {
         if (!this.classList.contains('editing')) {
-            document.querySelectorAll('.chapter-item').forEach(function(i) {
-                i.classList.remove('active', 'current');
-            });
-            this.classList.add('active');
-            // Sync to editor title
-            var titleInput = document.querySelector('[data-dom-id="chapter-title-input"]');
-            if (titleInput) titleInput.value = this.textContent.trim();
+            switchChapter(this);
         }
     });
 });
+
+// ===== Chapter Content Management =====
+var CHAPTER_STORAGE_KEY = 'xiaozhi_chapter_content';
+var currentChapterId = null;
+var autoSaveTimer = null;
+
+function getStorage() {
+    try {
+        return JSON.parse(localStorage.getItem(CHAPTER_STORAGE_KEY)) || {};
+    } catch(e) { return {}; }
+}
+
+function setStorage(data) {
+    try {
+        localStorage.setItem(CHAPTER_STORAGE_KEY, JSON.stringify(data));
+    } catch(e) {}
+}
+
+function getActiveChapterItem() {
+    return document.querySelector('.chapter-item.current') || document.querySelector('.chapter-item.active');
+}
+
+function saveCurrentChapter() {
+    if (!currentChapterId) return;
+    var editor = document.querySelector('[data-dom-id="editor-content"]');
+    var titleInput = document.querySelector('[data-dom-id="chapter-title-input"]');
+    var data = getStorage();
+    data[currentChapterId] = {
+        html: editor ? editor.innerHTML : '',
+        title: titleInput ? titleInput.value : '',
+        savedAt: new Date().toISOString()
+    };
+    setStorage(data);
+    updateSaveStatus('已保存');
+}
+
+function loadChapter(chapterId) {
+    var editor = document.querySelector('[data-dom-id="editor-content"]');
+    var titleInput = document.querySelector('[data-dom-id="chapter-title-input"]');
+    var data = getStorage();
+    var chapterData = data[chapterId];
+    
+    if (chapterData && chapterData.html && editor) {
+        editor.innerHTML = chapterData.html;
+    } else if (editor) {
+        // Default empty content for new chapters
+        editor.innerHTML = '<p></p>';
+    }
+    
+    if (chapterData && chapterData.title && titleInput) {
+        titleInput.value = chapterData.title;
+    }
+    
+    currentChapterId = chapterId;
+    updateWordCount();
+    updateSaveStatus('');
+}
+
+function switchChapter(targetItem) {
+    // Clear pending auto-save to avoid saving to wrong chapter
+    if (autoSaveTimer) {
+        clearTimeout(autoSaveTimer);
+        autoSaveTimer = null;
+    }
+
+    // Save current chapter first
+    if (currentChapterId) {
+        saveCurrentChapter();
+    }
+
+    // Update UI
+    document.querySelectorAll('.chapter-item').forEach(function(i) {
+        i.classList.remove('active', 'current');
+    });
+    targetItem.classList.add('active', 'current');
+    
+    // Get chapter ID
+    var chapterId = targetItem.getAttribute('data-chapter-id');
+    if (!chapterId) {
+        chapterId = 'ch-' + Date.now();
+        targetItem.setAttribute('data-chapter-id', chapterId);
+    }
+    
+    // Sync title
+    var titleInput = document.querySelector('[data-dom-id="chapter-title-input"]');
+    if (titleInput) titleInput.value = targetItem.textContent.trim();
+    
+    // Load chapter content
+    loadChapter(chapterId);
+}
+
+function updateSaveStatus(text) {
+    var statusBar = document.querySelector('.editor-statusbar span:last-child');
+    if (statusBar) {
+        if (text) {
+            var now = new Date();
+            var time = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
+            statusBar.textContent = text + '于 ' + time;
+        } else {
+            statusBar.textContent = '自动保存';
+        }
+    }
+}
+
+function updateWordCount() {
+    var editor = document.querySelector('[data-dom-id="editor-content"]');
+    var badge = document.querySelector('.word-count-badge');
+    if (editor && badge) {
+        var text = editor.innerText || '';
+        var count = text.replace(/\s/g, '').length;
+        badge.textContent = count.toLocaleString() + ' 字';
+    }
+}
 
 // Inline edit for group/volume names (double-click on label to edit)
 document.querySelectorAll('.grp-label').forEach(function(label) {
@@ -1263,12 +1353,46 @@ document.querySelectorAll('.grp-label').forEach(function(label) {
     });
 });
 
+// Auto-save on input
+var editor = document.querySelector('[data-dom-id="editor-content"]');
+if (editor) {
+    editor.addEventListener('input', function() {
+        updateWordCount();
+        updateSaveStatus('编辑中...');
+        if (autoSaveTimer) clearTimeout(autoSaveTimer);
+        autoSaveTimer = setTimeout(function() {
+            saveCurrentChapter();
+        }, 2000);
+    });
+}
+
+// Sync editor title changes back to chapter list and save
+var titleInput = document.querySelector('[data-dom-id="chapter-title-input"]');
+if (titleInput) {
+    titleInput.addEventListener('input', function() {
+        var newTitle = this.value.trim();
+        var activeItem = getActiveChapterItem();
+        if (activeItem) {
+            activeItem.textContent = newTitle;
+        }
+        updateSaveStatus('编辑中...');
+        if (autoSaveTimer) clearTimeout(autoSaveTimer);
+        autoSaveTimer = setTimeout(function() {
+            saveCurrentChapter();
+        }, 2000);
+    });
+}
+
 // Add new chapter
 var addChapterBtn = document.querySelector('[data-dom-id="btn-add-chapter"]');
 if (addChapterBtn) {
     addChapterBtn.addEventListener('click', function() {
         var title = prompt('请输入新章节标题：', '第25章 新章节');
         if (!title) return;
+        
+        // Save current first
+        if (currentChapterId) saveCurrentChapter();
+        
         var groups = document.querySelectorAll('.chapter-group');
         var targetItems = null;
         groups.forEach(function(g) {
@@ -1281,10 +1405,24 @@ if (addChapterBtn) {
             if (targetItems) targetItems.style.display = 'block';
         }
         if (targetItems) {
+            var chapterId = 'ch-' + Date.now();
             var item = document.createElement('a');
             item.className = 'chapter-item';
+            item.setAttribute('data-chapter-id', chapterId);
             item.textContent = title;
+            
+            // Click handler for new chapter
+            item.addEventListener('click', function(e) {
+                if (!this.classList.contains('editing')) {
+                    switchChapter(this);
+                }
+            });
+            
             targetItems.appendChild(item);
+            
+            // Switch to new chapter
+            switchChapter(item);
+            
             var header = targetItems.previousElementSibling;
             if (header) {
                 var badge = header.querySelector('.chapter-group-count');
@@ -1296,7 +1434,30 @@ if (addChapterBtn) {
         }
     });
 }
-// Sync current work from works center
+
+// Manual save button
+var saveBtn = document.querySelector('[data-dom-id="btn-save-chapter"]');
+if (!saveBtn) {
+    // Create save button if not exists
+    var toolbar = document.querySelector('.editor-toolbar');
+    if (toolbar) {
+        saveBtn = document.createElement('button');
+        saveBtn.className = 'btn-primary btn-sm';
+        saveBtn.setAttribute('data-dom-id', 'btn-save-chapter');
+        saveBtn.innerHTML = '<i data-lucide="save"></i>保存';
+        saveBtn.style.marginLeft = 'auto';
+        toolbar.appendChild(saveBtn);
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+    }
+}
+if (saveBtn) {
+    saveBtn.addEventListener('click', function() {
+        saveCurrentChapter();
+        updateSaveStatus('已保存');
+    });
+}
+
+// Sync current work from works center + init chapter system
 document.addEventListener('DOMContentLoaded', function() {
     try {
         var works = JSON.parse(localStorage.getItem('xiaozhi_works')) || [];
@@ -1309,16 +1470,33 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     } catch(e) {}
     
-    // Sync editor title changes back to chapter list
-    var titleInput = document.querySelector('[data-dom-id="chapter-title-input"]');
-    if (titleInput) {
-        titleInput.addEventListener('change', function() {
-            var newTitle = this.value.trim();
-            var activeItem = document.querySelector('.chapter-item.active');
-            if (activeItem) {
-                activeItem.textContent = newTitle;
-            }
+    // Initialize chapter system - load current chapter
+    var currentItem = document.querySelector('.chapter-item.current') || document.querySelector('.chapter-item.active');
+    if (currentItem) {
+        // Ensure only one chapter is marked current/active
+        document.querySelectorAll('.chapter-item').forEach(function(i) {
+            if (i !== currentItem) i.classList.remove('active', 'current');
         });
+        currentItem.classList.add('active', 'current');
+
+        var chapterId = currentItem.getAttribute('data-chapter-id');
+        if (!chapterId) {
+            chapterId = 'ch-' + Date.now();
+            currentItem.setAttribute('data-chapter-id', chapterId);
+        }
+        currentChapterId = chapterId;
+
+        // Load saved content if exists, otherwise keep default HTML content
+        var data = getStorage();
+        if (data[chapterId] && data[chapterId].html) {
+            var editor = document.querySelector('[data-dom-id="editor-content"]');
+            if (editor) editor.innerHTML = data[chapterId].html;
+        }
+        if (data[chapterId] && data[chapterId].title) {
+            var titleInput = document.querySelector('[data-dom-id="chapter-title-input"]');
+            if (titleInput) titleInput.value = data[chapterId].title;
+        }
+        updateWordCount();
     }
 });
 </script>

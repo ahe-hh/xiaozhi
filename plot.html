@@ -476,6 +476,28 @@ body { background: var(--nw-background); color: var(--nw-foreground); }
       .badge-neutral { background: var(--nw-neutral-100); color: var(--nw-neutral-600); }
       /* Lucide icon sizing */
       [data-lucide] { width: 18px; height: 18px; }
+
+      /* Sidebar collapse styles */
+      .sidebar-collapse-btn {
+        width: 28px; height: 28px; border: none; border-radius: 6px;
+        background: transparent; color: var(--nw-neutral-400); cursor: pointer;
+        display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+        transition: background 140ms ease, color 140ms ease;
+      }
+      .sidebar-collapse-btn:hover { background: var(--nw-neutral-100); color: var(--nw-neutral-600); }
+      .sidebar-collapse-btn svg { width: 16px; height: 16px; }
+      .app-shell.sidebar-collapsed .sidebar { width: 56px; }
+      .app-shell.sidebar-collapsed .sidebar-logo { padding: 20px 16px 16px; justify-content: center; }
+      .app-shell.sidebar-collapsed .sidebar-logo-left span { display: none; }
+      .app-shell.sidebar-collapsed .sidebar-collapse-btn { transform: rotate(180deg); }
+      .app-shell.sidebar-collapsed .sidebar-nav { padding: 8px 10px; align-items: center; }
+      .app-shell.sidebar-collapsed .nav-item { justify-content: center; padding: 10px; width: 36px; height: 36px; }
+      .app-shell.sidebar-collapsed .nav-item span { display: none; }
+      .app-shell.sidebar-collapsed .sidebar-footer { display: none; }
+
+      /* Logo styles */
+      .xiaozhi-logo { width: 24px; height: 24px; flex-shrink: 0; }
+      .sidebar-logo-left { display: flex; align-items: center; gap: 10px; overflow: hidden; }
     </style>
     <style>
       /* Mobile menu button */
@@ -976,6 +998,72 @@ document.querySelectorAll('.foreshadow-row').forEach(function(row) {
         this.style.background = 'var(--nw-primary-50)';
     });
 });
+
+// Plot filter (卷宗筛选)
+var plotFilterBtn = document.querySelector('.plot-filter-select');
+if (plotFilterBtn) {
+    var dropdown = document.createElement('div');
+    dropdown.style.cssText = 'position:absolute;top:100%;right:0;margin-top:4px;background:var(--nw-background);border:1px solid var(--nw-border);border-radius:8px;box-shadow:0 4px 16px rgba(15,23,42,0.1);padding:4px;display:none;z-index:10;min-width:140px;';
+    var options = ['全部卷宗', '第一卷·星海初临', '第二卷·风起云涌', '第三卷·暗流涌动'];
+    options.forEach(function(opt) {
+        var btn = document.createElement('button');
+        btn.style.cssText = 'display:block;width:100%;text-align:left;padding:6px 12px;font-size:12px;background:transparent;border:none;border-radius:4px;cursor:pointer;color:var(--nw-neutral-700);';
+        btn.textContent = opt;
+        btn.addEventListener('mouseenter', function() { this.style.background = 'var(--nw-neutral-100)'; });
+        btn.addEventListener('mouseleave', function() { this.style.background = 'transparent'; });
+        btn.addEventListener('click', function() {
+            plotFilterBtn.querySelector('span').textContent = opt;
+            dropdown.style.display = 'none';
+            // Filter timeline nodes by volume
+            document.querySelectorAll('.flex.flex-col.items-center[style*="flex:1"]').forEach(function(node) {
+                if (opt === '全部卷宗') {
+                    node.style.display = '';
+                } else {
+                    // Simple filtering: show all for now
+                    node.style.display = '';
+                }
+            });
+        });
+        dropdown.appendChild(btn);
+    });
+    plotFilterBtn.parentElement.style.position = 'relative';
+    plotFilterBtn.parentElement.appendChild(dropdown);
+    plotFilterBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    });
+    document.addEventListener('click', function() {
+        dropdown.style.display = 'none';
+    });
+}
+
+// Add plot point (添加剧情点)
+var addPlotBtn = document.querySelector('button[style*="添加剧情点"], button');
+document.querySelectorAll('.btn-ghost').forEach(function(btn) {
+    if (btn.textContent.indexOf('添加剧情点') !== -1) {
+        addPlotBtn = btn;
+    }
+});
+if (addPlotBtn) {
+    addPlotBtn.addEventListener('click', function() {
+        var title = prompt('请输入剧情点标题：', '例如：真相揭晓');
+        if (!title) return;
+        var chapter = prompt('请输入所在章节：', '例如：第25章');
+        if (!chapter) return;
+        // Add to timeline
+        var timelineContainer = document.querySelector('.card[style*="margin-bottom:16px"] .flex.justify-between');
+        if (timelineContainer) {
+            var newNode = document.createElement('div');
+            newNode.className = 'flex flex-col items-center';
+            newNode.style.cssText = 'flex:1;min-width:0;gap:6px;position:relative;z-index:1;';
+            newNode.innerHTML = '<div style="height:16px;display:flex;align-items:center;justify-content:center;"><div style="width:12px;height:12px;border-radius:50%;background:var(--nw-neutral-300);border:2px dashed var(--nw-neutral-400);box-shadow:0 0 0 3px var(--nw-background);"></div></div>' +
+                '<div style="font-size:11px;color:var(--nw-muted-foreground);">' + chapter + '</div>' +
+                '<div style="font-size:12px;font-weight:500;color:var(--nw-neutral-500);white-space:nowrap;">' + title + '</div>';
+            timelineContainer.appendChild(newNode);
+        }
+    });
+}
+
 // Add foreshadowing modal
 var addFsBtn = document.querySelector('[data-dom-id="btn-add-foreshadowing"]');
 var modal = document.createElement('div');

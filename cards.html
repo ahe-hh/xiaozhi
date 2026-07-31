@@ -476,6 +476,28 @@ body { background: var(--nw-background); color: var(--nw-foreground); }
       .badge-neutral { background: var(--nw-neutral-100); color: var(--nw-neutral-600); }
       /* Lucide icon sizing */
       [data-lucide] { width: 18px; height: 18px; }
+
+      /* Sidebar collapse styles */
+      .sidebar-collapse-btn {
+        width: 28px; height: 28px; border: none; border-radius: 6px;
+        background: transparent; color: var(--nw-neutral-400); cursor: pointer;
+        display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+        transition: background 140ms ease, color 140ms ease;
+      }
+      .sidebar-collapse-btn:hover { background: var(--nw-neutral-100); color: var(--nw-neutral-600); }
+      .sidebar-collapse-btn svg { width: 16px; height: 16px; }
+      .app-shell.sidebar-collapsed .sidebar { width: 56px; }
+      .app-shell.sidebar-collapsed .sidebar-logo { padding: 20px 16px 16px; justify-content: center; }
+      .app-shell.sidebar-collapsed .sidebar-logo-left span { display: none; }
+      .app-shell.sidebar-collapsed .sidebar-collapse-btn { transform: rotate(180deg); }
+      .app-shell.sidebar-collapsed .sidebar-nav { padding: 8px 10px; align-items: center; }
+      .app-shell.sidebar-collapsed .nav-item { justify-content: center; padding: 10px; width: 36px; height: 36px; }
+      .app-shell.sidebar-collapsed .nav-item span { display: none; }
+      .app-shell.sidebar-collapsed .sidebar-footer { display: none; }
+
+      /* Logo styles */
+      .xiaozhi-logo { width: 24px; height: 24px; flex-shrink: 0; }
+      .sidebar-logo-left { display: flex; align-items: center; gap: 10px; overflow: hidden; }
     </style>
     <style>
       /* Mobile menu button */

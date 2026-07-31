@@ -778,21 +778,28 @@ body { background: var(--nw-background); color: var(--nw-foreground); }
                         </svg>
 
                         <!-- 浮动信息卡（右上） -->
-                        <div id="char-info-card" style="position:absolute;top:16px;right:16px;width:200px;background:var(--nw-background);border:1px solid var(--nw-border);border-radius:8px;padding:14px;box-shadow:0 4px 12px rgba(15,23,42,0.06);">
-                            <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-                                <div style="width:40px;height:40px;border-radius:50%;background:var(--nw-primary);color:var(--nw-neutral-0);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;flex-shrink:0;">林</div>
-                                <div style="min-width:0;">
-                                    <div style="font-size:14px;font-weight:600;color:var(--nw-foreground);">林昭</div>
-                                    <span class="badge badge-info" style="margin-top:3px;font-size:11px;">主角</span>
+                        <div id="char-info-card" style="position:absolute;top:16px;right:16px;width:220px;background:var(--nw-background);border:1px solid var(--nw-border);border-radius:8px;padding:14px;box-shadow:0 4px 12px rgba(15,23,42,0.06);">
+                            <div id="char-card-content">
+                            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+                                <div style="display:flex;align-items:center;gap:10px;">
+                                    <div id="char-avatar" style="width:40px;height:40px;border-radius:50%;background:var(--nw-primary);color:var(--nw-neutral-0);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;flex-shrink:0;">林</div>
+                                    <div style="min-width:0;">
+                                        <div id="char-name" style="font-size:14px;font-weight:600;color:var(--nw-foreground);">林昭</div>
+                                        <span id="char-role-badge" class="badge badge-info" style="margin-top:3px;font-size:11px;">主角</span>
+                                    </div>
                                 </div>
+                                <button id="char-edit-btn" style="width:24px;height:24px;border:none;background:transparent;border-radius:4px;cursor:pointer;color:var(--nw-neutral-400);display:flex;align-items:center;justify-content:center;" title="编辑角色">
+                                    <i data-lucide="edit" style="width:14px;height:14px;"></i>
+                                </button>
                             </div>
-                            <p style="font-size:12px;color:var(--nw-muted-foreground);line-height:1.5;margin-bottom:10px;">星海港口长大的少年，意外卷入棋局。</p>
-                            <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px;">
+                            <p id="char-desc" style="font-size:12px;color:var(--nw-muted-foreground);line-height:1.5;margin-bottom:10px;">星海港口长大的少年，意外卷入棋局。</p>
+                            <div id="char-tags" style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px;">
                                 <span class="badge badge-neutral" style="font-size:11px;">沉稳</span>
                                 <span class="badge badge-neutral" style="font-size:11px;">机敏</span>
                                 <span class="badge badge-neutral" style="font-size:11px;">责任感</span>
                             </div>
                             <a href="#" style="font-size:12px;color:var(--nw-primary);text-decoration:none;display:inline-flex;align-items:center;gap:3px;">查看详情<i data-lucide="chevron-right" style="width:12px;height:12px;"></i></a>
+                            </div>
                         </div>
 
                         <!-- 浮动图例（左下） -->
@@ -974,6 +981,7 @@ document.querySelectorAll('.char-node').forEach(function(node) {
     node.style.cursor = 'pointer';
     node.addEventListener('click', function() {
         var name = this.getAttribute('data-name');
+        currentEditName = name;
         document.querySelectorAll('.rel-line').forEach(function(line) {
             var from = line.getAttribute('data-from');
             var to = line.getAttribute('data-to');
@@ -985,21 +993,168 @@ document.querySelectorAll('.char-node').forEach(function(node) {
             var card = document.getElementById('char-info-card');
             if (card) {
                 var tagsHtml = info.tags.map(function(t){ return '<span class="badge badge-neutral" style="font-size:11px;">' + t + '</span>'; }).join('');
-                card.innerHTML = '<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">' +
-                    '<div style="width:40px;height:40px;border-radius:50%;background:' + info.color + ';color:var(--nw-neutral-0);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;flex-shrink:0;">' + info.initial + '</div>' +
-                    '<div style="min-width:0;">' +
-                        '<div style="font-size:14px;font-weight:600;color:var(--nw-foreground);">' + name + '</div>' +
-                        '<span class="badge badge-info" style="margin-top:3px;font-size:11px;">' + info.role + '</span>' +
+                var roleBadgeClass = info.role === '主角' ? 'badge-info' : (info.role === '反派' ? 'badge-error' : (info.role === '主要' ? 'badge-info' : 'badge-neutral'));
+                card.innerHTML = '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">' +
+                    '<div style="display:flex;align-items:center;gap:10px;">' +
+                        '<div style="width:40px;height:40px;border-radius:50%;background:' + info.color + ';color:var(--nw-neutral-0);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;flex-shrink:0;">' + info.initial + '</div>' +
+                        '<div style="min-width:0;">' +
+                            '<div style="font-size:14px;font-weight:600;color:var(--nw-foreground);">' + name + '</div>' +
+                            '<span class="badge ' + roleBadgeClass + '" style="margin-top:3px;font-size:11px;">' + info.role + '</span>' +
+                        '</div>' +
                     '</div>' +
+                    '<button id="char-edit-btn" style="width:24px;height:24px;border:none;background:transparent;border-radius:4px;cursor:pointer;color:var(--nw-neutral-400);display:flex;align-items:center;justify-content:center;" title="编辑角色">' +
+                        '<i data-lucide="edit" style="width:14px;height:14px;"></i>' +
+                    '</button>' +
                 '</div>' +
                 '<p style="font-size:12px;color:var(--nw-muted-foreground);line-height:1.5;margin-bottom:10px;">' + info.desc + '</p>' +
                 '<div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px;">' + tagsHtml + '</div>' +
                 '<a href="#" style="font-size:12px;color:var(--nw-primary);text-decoration:none;display:inline-flex;align-items:center;gap:3px;">查看详情<i data-lucide="chevron-right" style="width:12px;height:12px;"></i></a>';
                 if (typeof lucide !== 'undefined') lucide.createIcons();
+                // Rebind edit button after innerHTML change
+                rebindEditBtn();
             }
         }
     });
 });
+
+// Rebind edit button after card update
+function rebindEditBtn() {
+    var btn = document.getElementById('char-edit-btn');
+    if (btn) {
+        btn.addEventListener('click', openEditModal);
+    }
+}
+
+// Edit character info - open modal function
+var currentEditName = null;
+function openEditModal() {
+    if (!currentEditName && Object.keys(charData).length > 0) {
+        currentEditName = Object.keys(charData)[0];
+    }
+    if (!currentEditName) return;
+    var info = charData[currentEditName];
+    if (!info) return;
+
+    var modal = document.createElement('div');
+    modal.style.cssText = 'position:fixed;inset:0;background:rgba(15,19,24,0.35);z-index:50;display:flex;align-items:center;justify-content:center;';
+    modal.innerHTML = '<div style="background:var(--nw-background);border:1px solid var(--nw-border);border-radius:12px;padding:20px;width:420px;max-width:90vw;box-shadow:0 8px 32px rgba(15,23,42,0.12);">' +
+        '<div style="font-size:16px;font-weight:600;color:var(--nw-foreground);margin-bottom:16px;">编辑角色信息</div>' +
+        '<div style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px;">' +
+            '<label style="font-size:13px;color:var(--nw-muted-foreground);">角色名称</label>' +
+            '<input type="text" id="edit-name" value="' + currentEditName + '" style="border:1px solid var(--nw-border);border-radius:8px;padding:8px 12px;font-size:13px;background:var(--nw-background);color:var(--nw-foreground);outline:none;">' +
+            '<label style="font-size:13px;color:var(--nw-muted-foreground);">角色身份</label>' +
+            '<select id="edit-role" style="border:1px solid var(--nw-border);border-radius:8px;padding:8px 12px;font-size:13px;background:var(--nw-background);color:var(--nw-foreground);outline:none;">' +
+                '<option value="主角"' + (info.role === '主角' ? ' selected' : '') + '>主角</option>' +
+                '<option value="主要"' + (info.role === '主要' ? ' selected' : '') + '>主要</option>' +
+                '<option value="次要"' + (info.role === '次要' ? ' selected' : '') + '>次要</option>' +
+                '<option value="配角"' + (info.role === '配角' ? ' selected' : '') + '>配角</option>' +
+                '<option value="反派"' + (info.role === '反派' ? ' selected' : '') + '>反派</option>' +
+            '</select>' +
+            '<label style="font-size:13px;color:var(--nw-muted-foreground);">角色简介</label>' +
+            '<textarea id="edit-desc" rows="3" style="border:1px solid var(--nw-border);border-radius:8px;padding:8px 12px;font-size:13px;background:var(--nw-background);color:var(--nw-foreground);outline:none;resize:vertical;">' + info.desc + '</textarea>' +
+            '<label style="font-size:13px;color:var(--nw-muted-foreground);">性格标签（用逗号分隔）</label>' +
+            '<input type="text" id="edit-tags" value="' + info.tags.join(',') + '" style="border:1px solid var(--nw-border);border-radius:8px;padding:8px 12px;font-size:13px;background:var(--nw-background);color:var(--nw-foreground);outline:none;">' +
+        '</div>' +
+        '<div style="display:flex;justify-content:flex-end;gap:8px;">' +
+            '<button id="edit-cancel" class="btn-ghost" style="font-size:13px;">取消</button>' +
+            '<button id="edit-confirm" class="btn-primary" style="font-size:13px;">保存修改</button>' +
+        '</div>' +
+    '</div>';
+    document.body.appendChild(modal);
+
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) modal.remove();
+    });
+    modal.querySelector('#edit-cancel').addEventListener('click', function() {
+        modal.remove();
+    });
+    modal.querySelector('#edit-confirm').addEventListener('click', function() {
+        var newName = modal.querySelector('#edit-name').value.trim();
+        var newRole = modal.querySelector('#edit-role').value;
+        var newDesc = modal.querySelector('#edit-desc').value.trim();
+        var newTags = modal.querySelector('#edit-tags').value.split(',').map(function(t) { return t.trim(); }).filter(function(t) { return t; });
+        if (!newName) { alert('请填写角色名称'); return; }
+
+        // Update charData
+        var oldInfo = charData[currentEditName];
+        charData[currentEditName] = {
+            role: newRole,
+            desc: newDesc,
+            tags: newTags,
+            color: oldInfo.color,
+            initial: newName.charAt(0)
+        };
+
+        // Update info card display
+        var cardName = document.getElementById('char-name');
+        var cardDesc = document.getElementById('char-desc');
+        var cardAvatar = document.getElementById('char-avatar');
+        var cardRoleBadge = document.getElementById('char-role-badge');
+        var cardTags = document.getElementById('char-tags');
+        if (cardName) cardName.textContent = newName;
+        if (cardDesc) cardDesc.textContent = newDesc;
+        if (cardAvatar) cardAvatar.textContent = newName.charAt(0);
+        if (cardRoleBadge) {
+            var newBadgeClass = newRole === '主角' ? 'badge-info' : (newRole === '反派' ? 'badge-error' : (newRole === '主要' ? 'badge-info' : 'badge-neutral'));
+            cardRoleBadge.textContent = newRole;
+            cardRoleBadge.className = 'badge ' + newBadgeClass;
+        }
+        if (cardTags) {
+            cardTags.innerHTML = newTags.map(function(t) { return '<span class="badge badge-neutral" style="font-size:11px;">' + t + '</span>'; }).join('');
+        }
+
+        // Update mini card list
+        var miniCard = document.querySelector('.mini-card[data-name="' + currentEditName + '"]');
+        if (miniCard) {
+            miniCard.setAttribute('data-name', newName);
+            miniCard.setAttribute('data-role', newRole);
+            var avatarDiv = miniCard.querySelector('.mini-avatar');
+            var nameSpan = miniCard.querySelector('span');
+            var roleBadge = miniCard.querySelector('.badge');
+            if (avatarDiv) avatarDiv.textContent = newName.charAt(0);
+            if (nameSpan) nameSpan.textContent = newName;
+            if (roleBadge) {
+                roleBadge.textContent = newRole;
+                roleBadge.className = 'badge ' + newBadgeClass;
+            }
+        }
+
+        // Update SVG node
+        var svgNode = document.querySelector('.char-node[data-name="' + currentEditName + '"]');
+        if (svgNode) {
+            svgNode.setAttribute('data-name', newName);
+            svgNode.setAttribute('data-role', newRole);
+            var textEl = svgNode.querySelector('text');
+            if (textEl) textEl.textContent = newName;
+        }
+
+        // Update relationships lines
+        document.querySelectorAll('.rel-line').forEach(function(line) {
+            if (line.getAttribute('data-from') === currentEditName) {
+                line.setAttribute('data-from', newName);
+            }
+            if (line.getAttribute('data-to') === currentEditName) {
+                line.setAttribute('data-to', newName);
+            }
+        });
+
+        // Update charData key if name changed
+        if (currentEditName !== newName) {
+            charData[newName] = charData[currentEditName];
+            delete charData[currentEditName];
+        }
+
+        currentEditName = newName;
+        modal.remove();
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+    });
+}
+
+// Initial edit button binding
+var editBtn = document.getElementById('char-edit-btn');
+if (editBtn) {
+    editBtn.addEventListener('click', openEditModal);
+}
 
 // Role filter
 function applyRoleFilter(filter) {

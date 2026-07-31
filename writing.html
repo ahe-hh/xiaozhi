@@ -480,6 +480,53 @@ body { background: var(--nw-background); color: var(--nw-foreground); }
       .badge-neutral { background: var(--nw-neutral-100); color: var(--nw-neutral-600); }
       /* Lucide icon sizing */
       [data-lucide] { width: 18px; height: 18px; }
+
+      /* Sidebar collapse styles */
+      .sidebar-collapse-btn {
+        width: 28px;
+        height: 28px;
+        border: none;
+        border-radius: 6px;
+        background: transparent;
+        color: var(--nw-neutral-400);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        transition: background 140ms ease, color 140ms ease;
+      }
+      .sidebar-collapse-btn:hover {
+        background: var(--nw-neutral-100);
+        color: var(--nw-neutral-600);
+      }
+      .sidebar-collapse-btn svg { width: 16px; height: 16px; }
+      .app-shell.sidebar-collapsed .sidebar { width: 56px; }
+      .app-shell.sidebar-collapsed .sidebar-logo { padding: 20px 16px 16px; justify-content: center; }
+      .app-shell.sidebar-collapsed .sidebar-logo-left span { display: none; }
+      .app-shell.sidebar-collapsed .sidebar-collapse-btn { transform: rotate(180deg); }
+      .app-shell.sidebar-collapsed .sidebar-nav { padding: 8px 10px; align-items: center; }
+      .app-shell.sidebar-collapsed .nav-item { justify-content: center; padding: 10px; width: 36px; height: 36px; }
+      .app-shell.sidebar-collapsed .nav-item span { display: none; }
+      .app-shell.sidebar-collapsed .sidebar-footer { display: none; }
+
+      /* Logo styles */
+      .xiaozhi-logo { width: 24px; height: 24px; flex-shrink: 0; }
+      .sidebar-logo-left { display: flex; align-items: center; gap: 10px; overflow: hidden; }
+
+      /* Inline editing styles */
+      .chapter-item.editing,
+      .grp-label.editing {
+        outline: none;
+        border: 1px dashed var(--nw-primary);
+        border-radius: 4px;
+        padding: 2px 4px;
+        background: var(--nw-primary-50);
+        cursor: text;
+      }
+      .chapter-item,
+      .chapter-group-header .grp-label { cursor: pointer; }
+      .chapter-item:hover { text-decoration: underline; }
     </style>
     <style>
       /* Mobile menu button */
@@ -1070,6 +1117,69 @@ document.querySelectorAll('.chapter-group-header').forEach(function(header) {
         if (group) group.style.display = group.style.display === 'none' ? 'block' : 'none';
     });
 });
+
+// Inline edit for chapter items (double-click to edit)
+document.querySelectorAll('.chapter-item').forEach(function(item) {
+    item.addEventListener('dblclick', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (this.classList.contains('editing')) return;
+        this.classList.add('editing');
+        this.setAttribute('contenteditable', 'true');
+        var range = document.createRange();
+        range.selectNodeContents(this);
+        var sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+    });
+    item.addEventListener('blur', function() {
+        this.classList.remove('editing');
+        this.removeAttribute('contenteditable');
+    });
+    item.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            this.blur();
+        }
+        e.stopPropagation();
+    });
+    item.addEventListener('click', function(e) {
+        if (!this.classList.contains('editing')) {
+            document.querySelectorAll('.chapter-item').forEach(function(i) {
+                i.classList.remove('active', 'current');
+            });
+            this.classList.add('active');
+        }
+    });
+});
+
+// Inline edit for group/volume names (double-click on label to edit)
+document.querySelectorAll('.grp-label').forEach(function(label) {
+    label.addEventListener('dblclick', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (this.classList.contains('editing')) return;
+        this.classList.add('editing');
+        this.setAttribute('contenteditable', 'true');
+        var range = document.createRange();
+        range.selectNodeContents(this);
+        var sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+    });
+    label.addEventListener('blur', function() {
+        this.classList.remove('editing');
+        this.removeAttribute('contenteditable');
+    });
+    label.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            this.blur();
+        }
+        e.stopPropagation();
+    });
+});
+
 // Add new chapter
 var addChapterBtn = document.querySelector('[data-dom-id="btn-add-chapter"]');
 if (addChapterBtn) {

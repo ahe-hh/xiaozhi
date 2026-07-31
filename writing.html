@@ -858,11 +858,15 @@ body { background: var(--nw-background); color: var(--nw-foreground); }
   .editor-content {
     min-height: 500px;
     font-size: 16px;
-    line-height: 1.8;
+    line-height: 2;
     color: var(--nw-foreground);
     outline: none;
+    text-align: justify;
   }
-  .editor-content p { margin-bottom: 18px; }
+  .editor-content p { 
+    margin-bottom: 20px; 
+    text-indent: 2em;
+  }
   .editor-content p:last-child { margin-bottom: 0; }
   .editor-statusbar {
     display: flex;
@@ -942,11 +946,237 @@ body { background: var(--nw-background); color: var(--nw-foreground); }
     color: var(--nw-muted-foreground);
     margin-top: 4px;
   }
-  .ai-expand-btn {
-    width: 100%;
-    justify-content: center;
-    margin-top: 8px;
+  .notes-tags-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 300px;
+    overflow-y: auto;
   }
+  .notes-tags-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+  .filter-tag {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 9999px;
+    background: var(--nw-neutral-100);
+    color: var(--nw-neutral-600);
+    cursor: pointer;
+    transition: all 120ms ease;
+    user-select: none;
+  }
+  .filter-tag:hover { background: var(--nw-neutral-200); }
+  .filter-tag.active {
+    background: var(--nw-primary);
+    color: var(--nw-primary-foreground);
+  }
+  .notes-tags-input-wrap {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+  .tag-input {
+    flex: 1;
+    min-width: 0;
+    padding: 6px 10px;
+    font-size: 12px;
+    border: 1px solid var(--nw-border);
+    border-radius: 6px;
+    background: var(--nw-background);
+    color: var(--nw-foreground);
+    outline: none;
+  }
+  .tag-input:focus { border-color: var(--nw-primary); }
+  .tag-category {
+    padding: 6px 8px;
+    font-size: 12px;
+    border: 1px solid var(--nw-border);
+    border-radius: 6px;
+    background: var(--nw-background);
+    color: var(--nw-foreground);
+    outline: none;
+    cursor: pointer;
+  }
+  .tag-add-btn {
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 6px;
+    background: var(--nw-primary);
+    color: var(--nw-primary-foreground);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .tag-add-btn:hover { background: var(--nw-primary-600); }
+  .tag-add-btn svg { width: 14px; height: 14px; }
+
+  .note-tag {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 10px;
+    background: var(--nw-neutral-50);
+    border: 1px solid var(--nw-border);
+    border-radius: 6px;
+    font-size: 12px;
+    color: var(--nw-neutral-700);
+  }
+  .note-tag.cat-event { border-left: 3px solid var(--nw-primary); }
+  .note-tag.cat-emotion { border-left: 3px solid var(--state-warning); }
+  .note-tag.cat-recycle { border-left: 3px solid var(--state-success); }
+  .note-tag.cat-other { border-left: 3px solid var(--nw-neutral-400); }
+  .note-tag-cat {
+    font-size: 10px;
+    color: var(--nw-muted-foreground);
+    padding: 1px 4px;
+    border-radius: 3px;
+    background: var(--nw-neutral-100);
+    flex-shrink: 0;
+  }
+  .note-tag-text {
+    flex: 1;
+    word-break: break-word;
+  }
+  .note-tag-delete {
+    width: 16px;
+    height: 16px;
+    border: none;
+    background: transparent;
+    color: var(--nw-neutral-400);
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+  }
+  .note-tag-delete:hover { background: var(--nw-neutral-200); color: var(--state-error); }
+  .note-tag-delete svg { width: 12px; height: 12px; }
+
+  /* Preview Modal */
+  .preview-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(15,19,24,0.7);
+    z-index: 100;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+  }
+  .preview-modal.active { display: flex; }
+  .preview-container {
+    width: 90%;
+    max-width: 900px;
+    max-height: 90vh;
+    background: var(--nw-background);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  }
+  .preview-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--nw-border);
+  }
+  .preview-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--nw-foreground);
+  }
+  .preview-tabs {
+    display: flex;
+    gap: 4px;
+    background: var(--nw-neutral-100);
+    padding: 4px;
+    border-radius: 8px;
+  }
+  .preview-tab {
+    padding: 6px 14px;
+    font-size: 12px;
+    color: var(--nw-neutral-500);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 120ms ease;
+  }
+  .preview-tab.active {
+    background: var(--nw-background);
+    color: var(--nw-foreground);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+  .preview-close {
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 8px;
+    background: var(--nw-neutral-100);
+    color: var(--nw-neutral-600);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .preview-close:hover { background: var(--nw-neutral-200); }
+  .preview-close svg { width: 16px; height: 16px; }
+  .preview-body {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    justify-content: center;
+    padding: 24px;
+    background: var(--nw-neutral-50);
+  }
+  .preview-paper {
+    background: var(--nw-background);
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    padding: 40px;
+    transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    width: 100%;
+    max-width: 720px;
+  }
+  .preview-paper.mobile {
+    width: 375px;
+    max-width: 100%;
+    padding: 24px 20px;
+    border-radius: 24px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+  }
+  .preview-paper h1, .preview-paper .chapter-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: var(--nw-foreground);
+    letter-spacing: -0.01em;
+  }
+  .preview-paper .chapter-title { display: none; }
+  .preview-paper.mobile .chapter-title { display: block; font-size: 18px; margin-bottom: 16px; }
+  .preview-paper .editor-content,
+  .preview-paper.preview-content {
+    font-size: 16px;
+    line-height: 2;
+    color: var(--nw-foreground);
+    text-align: justify;
+  }
+  .preview-paper.mobile .editor-content,
+  .preview-paper.mobile .preview-content {
+    font-size: 15px;
+  }
+  .preview-paper p {
+    margin-bottom: 20px;
+    text-indent: 2em;
+  }
+  .preview-paper p:last-child { margin-bottom: 0; }
                     </style>
                     <div class="writing-workspace">
                         <!-- 1. Chapter outline sidebar -->
@@ -1038,34 +1268,35 @@ body { background: var(--nw-background); color: var(--nw-foreground); }
 
                         <!-- 3. Chapter notes panel -->
                         <aside class="notes-panel">
-                            <div class="notes-section">
-                                <div class="notes-section-title">涉及角色</div>
-                                <div class="notes-tags">
-                                    <span class="badge badge-neutral">林昭</span>
-                                    <span class="badge badge-neutral">苏晚</span>
-                                    <span class="badge badge-neutral">周远</span>
-                                    <span class="badge badge-neutral">叶青</span>
+                            <div class="notes-section" id="notes-tags-section">
+                                <div class="notes-section-title">备注标签</div>
+                                <div class="notes-tags-filter" id="tags-filter">
+                                    <span class="filter-tag active" data-filter="all">全部</span>
+                                    <span class="filter-tag" data-filter="event">事件伏笔</span>
+                                    <span class="filter-tag" data-filter="emotion">情感伏笔</span>
+                                    <span class="filter-tag" data-filter="recycle">伏笔回收</span>
+                                    <span class="filter-tag" data-filter="other">其他</span>
                                 </div>
-                            </div>
-                            <div class="notes-section">
-                                <div class="notes-section-title">情绪曲线</div>
-                                <svg class="emotion-chart" viewBox="0 0 180 84" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="本章情绪紧张度曲线">
-                                    <line x1="8" y1="72" x2="172" y2="72" stroke="var(--nw-border)" stroke-width="1"/>
-                                    <path d="M8,58 L50,44 L95,28 L140,12 L172,26 L172,72 L8,72 Z" fill="var(--nw-primary)" fill-opacity="0.08"/>
-                                    <polyline points="8,58 50,44 95,28 140,12 172,26" stroke="var(--nw-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <circle cx="8" cy="58" r="3" fill="var(--nw-background)" stroke="var(--nw-primary)" stroke-width="2"/>
-                                    <circle cx="50" cy="44" r="3" fill="var(--nw-background)" stroke="var(--nw-primary)" stroke-width="2"/>
-                                    <circle cx="95" cy="28" r="3" fill="var(--nw-background)" stroke="var(--nw-primary)" stroke-width="2"/>
-                                    <circle cx="140" cy="12" r="3.5" fill="var(--nw-primary)"/>
-                                    <circle cx="172" cy="26" r="3" fill="var(--nw-background)" stroke="var(--nw-primary)" stroke-width="2"/>
-                                </svg>
-                                <div class="emotion-axis">
-                                    <span>开头</span>
-                                    <span>高潮</span>
-                                    <span>结尾</span>
+                                <div class="notes-tags-input-wrap">
+                                    <input type="text" id="tag-input" placeholder="添加备注..." class="tag-input">
+                                    <select id="tag-category" class="tag-category">
+                                        <option value="event">事件伏笔</option>
+                                        <option value="emotion">情感伏笔</option>
+                                        <option value="recycle">伏笔回收</option>
+                                        <option value="other">其他</option>
+                                    </select>
+                                    <button class="tag-add-btn" id="tag-add-btn"><i data-lucide="plus"></i></button>
                                 </div>
+                                <div class="notes-tags-list" id="tags-list"></div>
                             </div>
-                            <div class="notes-section" id="xz-chapter-foreshadows"></div>
+                            <div class="notes-section" id="notes-actions">
+                                <button class="btn-primary" style="width:100%;justify-content:center;" id="btn-save-chapter">
+                                    <i data-lucide="save"></i>保存本章
+                                </button>
+                                <button class="btn-ghost" style="width:100%;justify-content:center;margin-top:8px;" id="btn-preview">
+                                    <i data-lucide="monitor"></i>预览排版
+                                </button>
+                            </div>
                         </aside>
                     </div>
                 </main>
@@ -1107,6 +1338,26 @@ body { background: var(--nw-background); color: var(--nw-foreground); }
             </div>
         </div>
     </div>
+    <!-- Preview Modal -->
+    <div class="preview-modal" id="preview-modal">
+        <div class="preview-container">
+            <div class="preview-header">
+                <div class="preview-title">排版预览</div>
+                <div class="preview-tabs">
+                    <div class="preview-tab active" data-view="web">网页</div>
+                    <div class="preview-tab" data-view="mobile">手机</div>
+                </div>
+                <button class="preview-close" id="preview-close"><i data-lucide="x"></i></button>
+            </div>
+            <div class="preview-body">
+                <div class="preview-paper" id="preview-paper">
+                    <div class="chapter-title" id="preview-chapter-title"></div>
+                    <div class="preview-content" id="preview-content"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>lucide.createIcons();</script>
     <script>
 // AI Panel toggle
@@ -1239,11 +1490,14 @@ function saveCurrentChapter() {
     var editor = document.querySelector('[data-dom-id="editor-content"]');
     var titleInput = document.querySelector('[data-dom-id="chapter-title-input"]');
     var data = getStorage();
-    data[currentChapterId] = {
-        html: editor ? editor.innerHTML : '',
-        title: titleInput ? titleInput.value : '',
-        savedAt: new Date().toISOString()
-    };
+    data[currentChapterId] = data[currentChapterId] || {};
+    data[currentChapterId].html = editor ? editor.innerHTML : '';
+    data[currentChapterId].title = titleInput ? titleInput.value : '';
+    data[currentChapterId].savedAt = new Date().toISOString();
+    // Save tags
+    if (tagsManager && tagsManager.tags) {
+        data[currentChapterId].tags = tagsManager.tags;
+    }
     setStorage(data);
     updateSaveStatus('已保存');
 }
@@ -1301,6 +1555,9 @@ function switchChapter(targetItem) {
     
     // Load chapter content
     loadChapter(chapterId);
+    
+    // Load tags for this chapter
+    tagsManager.init(chapterId);
 }
 
 function updateSaveStatus(text) {
@@ -1453,9 +1710,179 @@ if (!saveBtn) {
 if (saveBtn) {
     saveBtn.addEventListener('click', function() {
         saveCurrentChapter();
-        updateSaveStatus('已保存');
+        updateWordCount();
+    }
+});
+
+// ===== Tags Management =====
+var tagsManager = {
+    tags: [],
+    currentFilter: 'all',
+    
+    init: function(chapterId) {
+        var data = getStorage();
+        this.tags = (data[chapterId] && data[chapterId].tags) || [];
+        this.render();
+    },
+    
+    add: function(text, category) {
+        if (!text.trim()) return;
+        this.tags.push({
+            id: 't-' + Date.now(),
+            text: text.trim(),
+            category: category || 'other',
+            createdAt: new Date().toISOString()
+        });
+        this.render();
+        saveCurrentChapter();
+    },
+    
+    remove: function(id) {
+        this.tags = this.tags.filter(function(t) { return t.id !== id; });
+        this.render();
+        saveCurrentChapter();
+    },
+    
+    setFilter: function(filter) {
+        this.currentFilter = filter;
+        this.render();
+    },
+    
+    render: function() {
+        var container = document.getElementById('tags-list');
+        if (!container) return;
+        
+        var filtered = this.currentFilter === 'all' 
+            ? this.tags 
+            : this.tags.filter(function(t) { return t.category === this.currentFilter; }.bind(this));
+        
+        container.innerHTML = '';
+        if (filtered.length === 0) {
+            container.innerHTML = '<div style="font-size:11px;color:var(--nw-neutral-400);text-align:center;padding:16px 0;">暂无备注标签</div>';
+            return;
+        }
+        
+        var catLabels = { event: '事件', emotion: '情感', recycle: '回收', other: '其他' };
+        filtered.forEach(function(tag) {
+            var el = document.createElement('div');
+            el.className = 'note-tag cat-' + tag.category;
+            el.innerHTML = '<span class="note-tag-cat">' + (catLabels[tag.category] || '其他') + '</span>' +
+                          '<span class="note-tag-text"></span>' +
+                          '<button class="note-tag-delete" data-tag-id="' + tag.id + '"><i data-lucide="x"></i></button>';
+            el.querySelector('.note-tag-text').textContent = tag.text;
+            container.appendChild(el);
+        });
+        
+        // Bind delete events
+        container.querySelectorAll('.note-tag-delete').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                tagsManager.remove(this.getAttribute('data-tag-id'));
+            });
+        });
+        
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+    }
+};
+
+// Init tag input and filter
+document.addEventListener('DOMContentLoaded', function() {
+    var tagInput = document.getElementById('tag-input');
+    var tagAddBtn = document.getElementById('tag-add-btn');
+    var tagCategory = document.getElementById('tag-category');
+    var filterContainer = document.getElementById('tags-filter');
+    
+    if (tagInput && tagAddBtn) {
+        var addTag = function() {
+            var val = tagInput.value.trim();
+            var cat = tagCategory ? tagCategory.value : 'other';
+            if (val) {
+                tagsManager.add(val, cat);
+                tagInput.value = '';
+            }
+        };
+        tagAddBtn.addEventListener('click', addTag);
+        tagInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                addTag();
+            }
+        });
+    }
+    
+    if (filterContainer) {
+        filterContainer.querySelectorAll('.filter-tag').forEach(function(tag) {
+            tag.addEventListener('click', function() {
+                filterContainer.querySelectorAll('.filter-tag').forEach(function(t) { t.classList.remove('active'); });
+                this.classList.add('active');
+                tagsManager.setFilter(this.getAttribute('data-filter'));
+            });
+        });
+    }
+});
+
+// ===== Preview Modal =====
+document.addEventListener('DOMContentLoaded', function() {
+    var modal = document.getElementById('preview-modal');
+    var openBtn = document.getElementById('btn-preview');
+    var closeBtn = document.getElementById('preview-close');
+    var paper = document.getElementById('preview-paper');
+    var content = document.getElementById('preview-content');
+    var titleEl = document.getElementById('preview-chapter-title');
+    var tabs = document.querySelectorAll('.preview-tab');
+    
+    function openPreview() {
+        if (!modal) return;
+        var editor = document.querySelector('[data-dom-id="editor-content"]');
+        var titleInput = document.querySelector('[data-dom-id="chapter-title-input"]');
+        if (editor) content.innerHTML = editor.innerHTML;
+        if (titleInput) titleEl.textContent = titleInput.value;
+        modal.classList.add('active');
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+    }
+    
+    function closePreview() {
+        if (modal) modal.classList.remove('active');
+    }
+    
+    function setView(view) {
+        if (!paper) return;
+        if (view === 'mobile') {
+            paper.classList.add('mobile');
+            tabs.forEach(function(t) { t.classList.toggle('active', t.getAttribute('data-view') === 'mobile'); });
+        } else {
+            paper.classList.remove('mobile');
+            tabs.forEach(function(t) { t.classList.toggle('active', t.getAttribute('data-view') === 'web'); });
+        }
+    }
+    
+    if (openBtn) openBtn.addEventListener('click', openPreview);
+    if (closeBtn) closeBtn.addEventListener('click', closePreview);
+    if (modal) modal.addEventListener('click', function(e) {
+        if (e.target === modal) closePreview();
     });
-}
+    tabs.forEach(function(tab) {
+        tab.addEventListener('click', function() {
+            setView(this.getAttribute('data-view'));
+        });
+    });
+});
+
+// Bind new save button in notes panel
+document.addEventListener('DOMContentLoaded', function() {
+    var btnSave = document.getElementById('btn-save-chapter');
+    if (btnSave) {
+        btnSave.addEventListener('click', function() {
+            saveCurrentChapter();
+        });
+    }
+    
+    // Initialize tags for current chapter
+    var currentItem = document.querySelector('.chapter-item.current') || document.querySelector('.chapter-item.active');
+    if (currentItem) {
+        var chapterId = currentItem.getAttribute('data-chapter-id');
+        if (chapterId) tagsManager.init(chapterId);
+    }
+});
 
 // Sync current work from works center + init chapter system
 document.addEventListener('DOMContentLoaded', function() {
